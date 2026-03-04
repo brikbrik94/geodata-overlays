@@ -1,0 +1,425 @@
+{
+  "version": 8,
+  "name": "OE5ITH NAH-Stützpunkte (CI)",
+  "metadata": {
+    "generator": "scripts/generate-pmtiles-folder-styles.js",
+    "folder": "NAH-Stützpunkte",
+    "sourceLayers": [
+      "nah_bayern",
+      "nah_zonen_sterreich",
+      "nah_sterreich",
+      "nah_sterreich_clean"
+    ],
+    "ci": {
+      "topbarHeight": 60,
+      "accent": "#3b82f6"
+    }
+  },
+  "glyphs": "https://tiles.oe5ith.at/assets/fonts/{fontstack}/{range}.pbf",
+  "sprite": "https://tiles.oe5ith.at/assets/sprites/oe5ith-markers",
+  "sources": {
+    "folder": {
+      "type": "vector",
+      "url": "pmtiles://https://tiles.oe5ith.at/pmtiles/NAH-Stützpunkte.pmtiles",
+      "minzoom": 0,
+      "maxzoom": 15
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#1a1a1a"
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_bayern-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "nah_bayern",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_bayern-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "nah_bayern",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_bayern-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "nah_bayern",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_sterreich-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "nah_sterreich",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_sterreich-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "nah_sterreich",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_sterreich-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "nah_sterreich",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_sterreich_clean-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "nah_sterreich_clean",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_sterreich_clean-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "nah_sterreich_clean",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_sterreich_clean-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "nah_sterreich_clean",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_zonen_sterreich-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "nah_zonen_sterreich",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_zonen_sterreich-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "nah_zonen_sterreich",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "nah-stuetzpunkte-nah_zonen_sterreich-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "nah_zonen_sterreich",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    }
+  ]
+}

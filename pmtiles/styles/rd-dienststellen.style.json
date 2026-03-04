@@ -1,0 +1,502 @@
+{
+  "version": 8,
+  "name": "OE5ITH RD-Dienststellen (CI)",
+  "metadata": {
+    "generator": "scripts/generate-pmtiles-folder-styles.js",
+    "folder": "RD-Dienststellen",
+    "sourceLayers": [
+      "brd_ooe",
+      "rd_by",
+      "rd_n",
+      "rd_oo_nef",
+      "rd_oo_sew",
+      "rd_sbg",
+      "rd_stmk"
+    ],
+    "ci": {
+      "topbarHeight": 60,
+      "accent": "#3b82f6"
+    }
+  },
+  "glyphs": "https://tiles.oe5ith.at/assets/fonts/{fontstack}/{range}.pbf",
+  "sprite": "https://tiles.oe5ith.at/assets/sprites/oe5ith-markers",
+  "sources": {
+    "folder": {
+      "type": "vector",
+      "url": "pmtiles://https://tiles.oe5ith.at/pmtiles/RD-Dienststellen.pmtiles",
+      "minzoom": 0,
+      "maxzoom": 15
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#1a1a1a"
+      }
+    },
+    {
+      "id": "rd-dienststellen-brd_ooe-symbols",
+      "type": "symbol",
+      "source": "folder",
+      "source-layer": "brd_ooe",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "icon-image": "rd-pin",
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          0.5,
+          12,
+          0.9
+        ],
+        "icon-allow-overlap": true,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "alt_name"
+          ],
+          [
+            "get",
+            "short_name"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-size": 11,
+        "text-font": [
+          "Segoe UI Regular",
+          "Arial Unicode MS Regular"
+        ],
+        "text-offset": [
+          0,
+          1.2
+        ],
+        "text-anchor": "top"
+      },
+      "paint": {
+        "text-color": "#e0e0e0",
+        "text-halo-color": "#1a1a1a",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "rd-dienststellen-rd_by-symbols",
+      "type": "symbol",
+      "source": "folder",
+      "source-layer": "rd_by",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "icon-image": "rd-pin",
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          0.5,
+          12,
+          0.9
+        ],
+        "icon-allow-overlap": true,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "alt_name"
+          ],
+          [
+            "get",
+            "short_name"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-size": 11,
+        "text-font": [
+          "Segoe UI Regular",
+          "Arial Unicode MS Regular"
+        ],
+        "text-offset": [
+          0,
+          1.2
+        ],
+        "text-anchor": "top"
+      },
+      "paint": {
+        "text-color": "#e0e0e0",
+        "text-halo-color": "#1a1a1a",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "rd-dienststellen-rd_n-symbols",
+      "type": "symbol",
+      "source": "folder",
+      "source-layer": "rd_n",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "icon-image": "rd-pin",
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          0.5,
+          12,
+          0.9
+        ],
+        "icon-allow-overlap": true,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "alt_name"
+          ],
+          [
+            "get",
+            "short_name"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-size": 11,
+        "text-font": [
+          "Segoe UI Regular",
+          "Arial Unicode MS Regular"
+        ],
+        "text-offset": [
+          0,
+          1.2
+        ],
+        "text-anchor": "top"
+      },
+      "paint": {
+        "text-color": "#e0e0e0",
+        "text-halo-color": "#1a1a1a",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "rd-dienststellen-rd_oo_nef-symbols",
+      "type": "symbol",
+      "source": "folder",
+      "source-layer": "rd_oo_nef",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "icon-image": "rd-pin",
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          0.5,
+          12,
+          0.9
+        ],
+        "icon-allow-overlap": true,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "alt_name"
+          ],
+          [
+            "get",
+            "short_name"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-size": 11,
+        "text-font": [
+          "Segoe UI Regular",
+          "Arial Unicode MS Regular"
+        ],
+        "text-offset": [
+          0,
+          1.2
+        ],
+        "text-anchor": "top"
+      },
+      "paint": {
+        "text-color": "#e0e0e0",
+        "text-halo-color": "#1a1a1a",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "rd-dienststellen-rd_oo_sew-symbols",
+      "type": "symbol",
+      "source": "folder",
+      "source-layer": "rd_oo_sew",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "icon-image": "rd-pin",
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          0.5,
+          12,
+          0.9
+        ],
+        "icon-allow-overlap": true,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "alt_name"
+          ],
+          [
+            "get",
+            "short_name"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-size": 11,
+        "text-font": [
+          "Segoe UI Regular",
+          "Arial Unicode MS Regular"
+        ],
+        "text-offset": [
+          0,
+          1.2
+        ],
+        "text-anchor": "top"
+      },
+      "paint": {
+        "text-color": "#e0e0e0",
+        "text-halo-color": "#1a1a1a",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "rd-dienststellen-rd_sbg-symbols",
+      "type": "symbol",
+      "source": "folder",
+      "source-layer": "rd_sbg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "icon-image": "rd-pin",
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          0.5,
+          12,
+          0.9
+        ],
+        "icon-allow-overlap": true,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "alt_name"
+          ],
+          [
+            "get",
+            "short_name"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-size": 11,
+        "text-font": [
+          "Segoe UI Regular",
+          "Arial Unicode MS Regular"
+        ],
+        "text-offset": [
+          0,
+          1.2
+        ],
+        "text-anchor": "top"
+      },
+      "paint": {
+        "text-color": "#e0e0e0",
+        "text-halo-color": "#1a1a1a",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "rd-dienststellen-rd_stmk-symbols",
+      "type": "symbol",
+      "source": "folder",
+      "source-layer": "rd_stmk",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "icon-image": "rd-pin",
+        "icon-size": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          0.5,
+          12,
+          0.9
+        ],
+        "icon-allow-overlap": true,
+        "text-field": [
+          "coalesce",
+          [
+            "get",
+            "alt_name"
+          ],
+          [
+            "get",
+            "short_name"
+          ],
+          [
+            "get",
+            "name"
+          ],
+          ""
+        ],
+        "text-size": 11,
+        "text-font": [
+          "Segoe UI Regular",
+          "Arial Unicode MS Regular"
+        ],
+        "text-offset": [
+          0,
+          1.2
+        ],
+        "text-anchor": "top"
+      },
+      "paint": {
+        "text-color": "#e0e0e0",
+        "text-halo-color": "#1a1a1a",
+        "text-halo-width": 1
+      }
+    }
+  ]
+}

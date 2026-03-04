@@ -1,0 +1,45 @@
+{
+  "title": "NAH-Stützpunkte",
+  "tiles": [
+    {
+      "id": "NAH-Bayern",
+      "file": "NAH-Bayern.pmtiles",
+      "size": 46569,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "be11bac6075e",
+      "pmtilesUrl": "/data/tiles/NAH-Stützpunkte/NAH-Bayern.pmtiles",
+      "sourceId": "nah_bayern",
+      "sourceLayer": "nah_bayern"
+    },
+    {
+      "id": "NAH-Zonen-Österreich",
+      "file": "NAH-Zonen-Österreich.pmtiles",
+      "size": 5164025,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "91a8c23eeacd",
+      "pmtilesUrl": "/data/tiles/NAH-Stützpunkte/NAH-Zonen-Österreich.pmtiles",
+      "sourceId": "nah_zonen_sterreich",
+      "sourceLayer": "nah_zonen_sterreich"
+    },
+    {
+      "id": "NAH-Österreich",
+      "file": "NAH-Österreich.pmtiles",
+      "size": 132097,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "2352aaa61440",
+      "pmtilesUrl": "/data/tiles/NAH-Stützpunkte/NAH-Österreich.pmtiles",
+      "sourceId": "nah_sterreich",
+      "sourceLayer": "nah_sterreich"
+    },
+    {
+      "id": "NAH-Österreich_clean",
+      "file": "NAH-Österreich_clean.pmtiles",
+      "size": 95579,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "f07b7b9d83e9",
+      "pmtilesUrl": "/data/tiles/NAH-Stützpunkte/NAH-Österreich_clean.pmtiles",
+      "sourceId": "nah_sterreich_clean",
+      "sourceLayer": "nah_sterreich_clean"
+    }
+  ]
+}

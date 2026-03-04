@@ -1,0 +1,65 @@
+{
+  "title": "Linz",
+  "tiles": [
+    {
+      "id": "15-0",
+      "file": "15-0.pmtiles",
+      "size": 21492,
+      "mtime": "2025-12-22T11:33:32.000Z",
+      "sha256_12": "b74739a138f8",
+      "pmtilesUrl": "/data/tiles/Anfahrtszeit/Linz/15-0.pmtiles",
+      "sourceId": "15_0",
+      "sourceLayer": "15_0"
+    },
+    {
+      "id": "30-15",
+      "file": "30-15.pmtiles",
+      "size": 109283,
+      "mtime": "2025-12-22T11:33:32.000Z",
+      "sha256_12": "470205dc2c61",
+      "pmtilesUrl": "/data/tiles/Anfahrtszeit/Linz/30-15.pmtiles",
+      "sourceId": "30_15",
+      "sourceLayer": "30_15"
+    },
+    {
+      "id": "45-30",
+      "file": "45-30.pmtiles",
+      "size": 248012,
+      "mtime": "2025-12-22T11:33:32.000Z",
+      "sha256_12": "4ef92e2d639a",
+      "pmtilesUrl": "/data/tiles/Anfahrtszeit/Linz/45-30.pmtiles",
+      "sourceId": "45_30",
+      "sourceLayer": "45_30"
+    },
+    {
+      "id": "60-45",
+      "file": "60-45.pmtiles",
+      "size": 393432,
+      "mtime": "2025-12-22T11:33:32.000Z",
+      "sha256_12": "266e75ceaf7f",
+      "pmtilesUrl": "/data/tiles/Anfahrtszeit/Linz/60-45.pmtiles",
+      "sourceId": "60_45",
+      "sourceLayer": "60_45"
+    },
+    {
+      "id": "75-60",
+      "file": "75-60.pmtiles",
+      "size": 538990,
+      "mtime": "2025-12-22T11:33:32.000Z",
+      "sha256_12": "cabab4038c3e",
+      "pmtilesUrl": "/data/tiles/Anfahrtszeit/Linz/75-60.pmtiles",
+      "sourceId": "75_60",
+      "sourceLayer": "75_60"
+    },
+    {
+      "id": "90-75",
+      "file": "90-75.pmtiles",
+      "size": 657251,
+      "mtime": "2025-12-22T11:33:32.000Z",
+      "sha256_12": "35c235ddf18c",
+      "pmtilesUrl": "/data/tiles/Anfahrtszeit/Linz/90-75.pmtiles",
+      "sourceId": "90_75",
+      "sourceLayer": "90_75"
+    }
+  ]
+}

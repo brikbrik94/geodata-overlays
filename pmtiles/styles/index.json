@@ -1,0 +1,62 @@
+[
+  {
+    "folder": "Anfahrtszeit/Linz",
+    "styleFile": "docs/pmtiles/styles/anfahrtszeit-linz.style.json",
+    "pmtilesTarget": "https://tiles.oe5ith.at/pmtiles/Anfahrtszeit/Linz.pmtiles",
+    "sourceLayerCount": 6
+  },
+  {
+    "folder": "Bezirke",
+    "styleFile": "docs/pmtiles/styles/bezirke.style.json",
+    "pmtilesTarget": "https://tiles.oe5ith.at/pmtiles/Bezirke.pmtiles",
+    "sourceLayerCount": 1
+  },
+  {
+    "folder": "Gemeinden",
+    "styleFile": "docs/pmtiles/styles/gemeinden.style.json",
+    "pmtilesTarget": "https://tiles.oe5ith.at/pmtiles/Gemeinden.pmtiles",
+    "sourceLayerCount": 18
+  },
+  {
+    "folder": "Leitstellen-Bereiche",
+    "styleFile": "docs/pmtiles/styles/leitstellen-bereiche.style.json",
+    "pmtilesTarget": "https://tiles.oe5ith.at/pmtiles/Leitstellen-Bereiche.pmtiles",
+    "sourceLayerCount": 5
+  },
+  {
+    "folder": "NAH-Stützpunkte",
+    "styleFile": "docs/pmtiles/styles/nah-stuetzpunkte.style.json",
+    "pmtilesTarget": "https://tiles.oe5ith.at/pmtiles/NAH-Stützpunkte.pmtiles",
+    "sourceLayerCount": 4
+  },
+  {
+    "folder": "RD-Dienststellen",
+    "styleFile": "docs/pmtiles/styles/rd-dienststellen.style.json",
+    "pmtilesTarget": "https://tiles.oe5ith.at/pmtiles/RD-Dienststellen.pmtiles",
+    "sourceLayerCount": 7
+  },
+  {
+    "folder": "Sonstiges",
+    "styleFile": "docs/pmtiles/styles/sonstiges.style.json",
+    "pmtilesTarget": "https://tiles.oe5ith.at/pmtiles/Sonstiges.pmtiles",
+    "sourceLayerCount": 41
+  },
+  {
+    "folder": "Straßen/Autobahnen",
+    "styleFile": "docs/pmtiles/styles/strassen-autobahnen.style.json",
+    "pmtilesTarget": "https://tiles.oe5ith.at/pmtiles/Straßen/Autobahnen.pmtiles",
+    "sourceLayerCount": 5
+  },
+  {
+    "folder": "Straßen/Bundesstraßen",
+    "styleFile": "docs/pmtiles/styles/strassen-bundesstrassen.style.json",
+    "pmtilesTarget": "https://tiles.oe5ith.at/pmtiles/Straßen/Bundesstraßen.pmtiles",
+    "sourceLayerCount": 41
+  },
+  {
+    "folder": "Zonen",
+    "styleFile": "docs/pmtiles/styles/zonen.style.json",
+    "pmtilesTarget": "https://tiles.oe5ith.at/pmtiles/Zonen.pmtiles",
+    "sourceLayerCount": 14
+  }
+]

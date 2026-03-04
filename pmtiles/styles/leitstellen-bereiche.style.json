@@ -1,0 +1,523 @@
+{
+  "version": 8,
+  "name": "OE5ITH Leitstellen-Bereiche (CI)",
+  "metadata": {
+    "generator": "scripts/generate-pmtiles-folder-styles.js",
+    "folder": "Leitstellen-Bereiche",
+    "sourceLayers": [
+      "hrv",
+      "inn",
+      "rlz",
+      "skg",
+      "srki"
+    ],
+    "ci": {
+      "topbarHeight": 60,
+      "accent": "#3b82f6"
+    }
+  },
+  "glyphs": "https://tiles.oe5ith.at/assets/fonts/{fontstack}/{range}.pbf",
+  "sprite": "https://tiles.oe5ith.at/assets/sprites/oe5ith-markers",
+  "sources": {
+    "folder": {
+      "type": "vector",
+      "url": "pmtiles://https://tiles.oe5ith.at/pmtiles/Leitstellen-Bereiche.pmtiles",
+      "minzoom": 0,
+      "maxzoom": 15
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#1a1a1a"
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-hrv-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "hrv",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-hrv-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "hrv",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-hrv-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "hrv",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-inn-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "inn",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-inn-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "inn",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-inn-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "inn",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-rlz-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "rlz",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-rlz-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "rlz",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-rlz-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "rlz",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-skg-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "skg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-skg-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "skg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-skg-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "skg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-srki-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "srki",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-srki-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "srki",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "leitstellen-bereiche-srki-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "srki",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    }
+  ]
+}

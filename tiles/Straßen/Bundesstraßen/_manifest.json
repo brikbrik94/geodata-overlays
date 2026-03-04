@@ -1,0 +1,415 @@
+{
+  "title": "Bundesstraßen",
+  "tiles": [
+    {
+      "id": "B1",
+      "file": "B1.pmtiles",
+      "size": 112463,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "b9ac35949d78",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B1.pmtiles",
+      "sourceId": "b1",
+      "sourceLayer": "b1"
+    },
+    {
+      "id": "B119",
+      "file": "B119.pmtiles",
+      "size": 20927,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "9f75e1e6cf62",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B119.pmtiles",
+      "sourceId": "b119",
+      "sourceLayer": "b119"
+    },
+    {
+      "id": "B119a",
+      "file": "B119a.pmtiles",
+      "size": 9149,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "a99c0361482c",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B119a.pmtiles",
+      "sourceId": "b119a",
+      "sourceLayer": "b119a"
+    },
+    {
+      "id": "B120",
+      "file": "B120.pmtiles",
+      "size": 26470,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "5ba81ce53812",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B120.pmtiles",
+      "sourceId": "b120",
+      "sourceLayer": "b120"
+    },
+    {
+      "id": "B121",
+      "file": "B121.pmtiles",
+      "size": 11427,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "483a37db2b53",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B121.pmtiles",
+      "sourceId": "b121",
+      "sourceLayer": "b121"
+    },
+    {
+      "id": "B122",
+      "file": "B122.pmtiles",
+      "size": 44624,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "94e61066a7e8",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B122.pmtiles",
+      "sourceId": "b122",
+      "sourceLayer": "b122"
+    },
+    {
+      "id": "B123",
+      "file": "B123.pmtiles",
+      "size": 14876,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "29c60519e95d",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B123.pmtiles",
+      "sourceId": "b123",
+      "sourceLayer": "b123"
+    },
+    {
+      "id": "B124",
+      "file": "B124.pmtiles",
+      "size": 28686,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "4dc5a4328940",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B124.pmtiles",
+      "sourceId": "b124",
+      "sourceLayer": "b124"
+    },
+    {
+      "id": "B125",
+      "file": "B125.pmtiles",
+      "size": 49215,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "09f0cd2a58c8",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B125.pmtiles",
+      "sourceId": "b125",
+      "sourceLayer": "b125"
+    },
+    {
+      "id": "B126",
+      "file": "B126.pmtiles",
+      "size": 31218,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "2231305afa05",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B126.pmtiles",
+      "sourceId": "b126",
+      "sourceLayer": "b126"
+    },
+    {
+      "id": "B127",
+      "file": "B127.pmtiles",
+      "size": 57115,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "38cae5b61de4",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B127.pmtiles",
+      "sourceId": "b127",
+      "sourceLayer": "b127"
+    },
+    {
+      "id": "B129",
+      "file": "B129.pmtiles",
+      "size": 28756,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "0c37b005aa48",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B129.pmtiles",
+      "sourceId": "b129",
+      "sourceLayer": "b129"
+    },
+    {
+      "id": "B130",
+      "file": "B130.pmtiles",
+      "size": 43589,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "88e5f4132f5c",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B130.pmtiles",
+      "sourceId": "b130",
+      "sourceLayer": "b130"
+    },
+    {
+      "id": "B131",
+      "file": "B131.pmtiles",
+      "size": 23655,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "ea5c8229e6b1",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B131.pmtiles",
+      "sourceId": "b131",
+      "sourceLayer": "b131"
+    },
+    {
+      "id": "B132",
+      "file": "B132.pmtiles",
+      "size": 7930,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "1bf64ccca8e8",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B132.pmtiles",
+      "sourceId": "b132",
+      "sourceLayer": "b132"
+    },
+    {
+      "id": "B133",
+      "file": "B133.pmtiles",
+      "size": 7606,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "b832814c8cb4",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B133.pmtiles",
+      "sourceId": "b133",
+      "sourceLayer": "b133"
+    },
+    {
+      "id": "B134",
+      "file": "B134.pmtiles",
+      "size": 18902,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "c84d96bc709c",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B134.pmtiles",
+      "sourceId": "b134",
+      "sourceLayer": "b134"
+    },
+    {
+      "id": "B135",
+      "file": "B135.pmtiles",
+      "size": 24565,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "c00b570cad5c",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B135.pmtiles",
+      "sourceId": "b135",
+      "sourceLayer": "b135"
+    },
+    {
+      "id": "B136",
+      "file": "B136.pmtiles",
+      "size": 25017,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "6ca8f73e8373",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B136.pmtiles",
+      "sourceId": "b136",
+      "sourceLayer": "b136"
+    },
+    {
+      "id": "B137",
+      "file": "B137.pmtiles",
+      "size": 59301,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "1c8d57545801",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B137.pmtiles",
+      "sourceId": "b137",
+      "sourceLayer": "b137"
+    },
+    {
+      "id": "B138",
+      "file": "B138.pmtiles",
+      "size": 70670,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "859185210cb3",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B138.pmtiles",
+      "sourceId": "b138",
+      "sourceLayer": "b138"
+    },
+    {
+      "id": "B139",
+      "file": "B139.pmtiles",
+      "size": 21541,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "656d4c8bdfd1",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B139.pmtiles",
+      "sourceId": "b139",
+      "sourceLayer": "b139"
+    },
+    {
+      "id": "B140",
+      "file": "B140.pmtiles",
+      "size": 23165,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "ac578ea338ec",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B140.pmtiles",
+      "sourceId": "b140",
+      "sourceLayer": "b140"
+    },
+    {
+      "id": "B141",
+      "file": "B141.pmtiles",
+      "size": 42289,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "0d4bcd068b76",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B141.pmtiles",
+      "sourceId": "b141",
+      "sourceLayer": "b141"
+    },
+    {
+      "id": "B142",
+      "file": "B142.pmtiles",
+      "size": 11662,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "df63d94838c4",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B142.pmtiles",
+      "sourceId": "b142",
+      "sourceLayer": "b142"
+    },
+    {
+      "id": "B143",
+      "file": "B143.pmtiles",
+      "size": 40948,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "c0ed65edcedb",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B143.pmtiles",
+      "sourceId": "b143",
+      "sourceLayer": "b143"
+    },
+    {
+      "id": "B144",
+      "file": "B144.pmtiles",
+      "size": 25377,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "df1fd172b9cb",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B144.pmtiles",
+      "sourceId": "b144",
+      "sourceLayer": "b144"
+    },
+    {
+      "id": "B145",
+      "file": "B145.pmtiles",
+      "size": 77148,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "c2dc8c9306df",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B145.pmtiles",
+      "sourceId": "b145",
+      "sourceLayer": "b145"
+    },
+    {
+      "id": "B147",
+      "file": "B147.pmtiles",
+      "size": 30274,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "14e5254618fa",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B147.pmtiles",
+      "sourceId": "b147",
+      "sourceLayer": "b147"
+    },
+    {
+      "id": "B148",
+      "file": "B148.pmtiles",
+      "size": 34079,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "e49268952b3d",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B148.pmtiles",
+      "sourceId": "b148",
+      "sourceLayer": "b148"
+    },
+    {
+      "id": "B149",
+      "file": "B149.pmtiles",
+      "size": 10342,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "72bec1b2919c",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B149.pmtiles",
+      "sourceId": "b149",
+      "sourceLayer": "b149"
+    },
+    {
+      "id": "B151",
+      "file": "B151.pmtiles",
+      "size": 40155,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "ee67efe38eb8",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B151.pmtiles",
+      "sourceId": "b151",
+      "sourceLayer": "b151"
+    },
+    {
+      "id": "B152",
+      "file": "B152.pmtiles",
+      "size": 23530,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "7300f19ccae1",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B152.pmtiles",
+      "sourceId": "b152",
+      "sourceLayer": "b152"
+    },
+    {
+      "id": "B153",
+      "file": "B153.pmtiles",
+      "size": 12309,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "ed9fc2552df1",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B153.pmtiles",
+      "sourceId": "b153",
+      "sourceLayer": "b153"
+    },
+    {
+      "id": "B154",
+      "file": "B154.pmtiles",
+      "size": 18345,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "0a6c71ed2ceb",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B154.pmtiles",
+      "sourceId": "b154",
+      "sourceLayer": "b154"
+    },
+    {
+      "id": "B156",
+      "file": "B156.pmtiles",
+      "size": 20295,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "0daf2be2f9fa",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B156.pmtiles",
+      "sourceId": "b156",
+      "sourceLayer": "b156"
+    },
+    {
+      "id": "B158",
+      "file": "B158.pmtiles",
+      "size": 7613,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "f1c2e744f56d",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B158.pmtiles",
+      "sourceId": "b158",
+      "sourceLayer": "b158"
+    },
+    {
+      "id": "B3",
+      "file": "B3.pmtiles",
+      "size": 54303,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "1f85c8f1d8f4",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B3.pmtiles",
+      "sourceId": "b3",
+      "sourceLayer": "b3"
+    },
+    {
+      "id": "B309",
+      "file": "B309.pmtiles",
+      "size": 15939,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "28bc35912822",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B309.pmtiles",
+      "sourceId": "b309",
+      "sourceLayer": "b309"
+    },
+    {
+      "id": "B310",
+      "file": "B310.pmtiles",
+      "size": 16112,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "ec3893c16396",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B310.pmtiles",
+      "sourceId": "b310",
+      "sourceLayer": "b310"
+    },
+    {
+      "id": "B38",
+      "file": "B38.pmtiles",
+      "size": 65808,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "71830c8dbeb0",
+      "pmtilesUrl": "/data/tiles/Straßen/Bundesstraßen/B38.pmtiles",
+      "sourceId": "b38",
+      "sourceLayer": "b38"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "title": "RD-Dienststellen",
+  "tiles": [
+    {
+      "id": "BRD-OOE",
+      "file": "BRD-OOE.pmtiles",
+      "size": 81101,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "784863ab6f33",
+      "pmtilesUrl": "/data/tiles/RD-Dienststellen/BRD-OOE.pmtiles",
+      "sourceId": "brd_ooe",
+      "sourceLayer": "brd_ooe"
+    },
+    {
+      "id": "RD-BY",
+      "file": "RD-BY.pmtiles",
+      "size": 94166,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "5c1fd382a4a1",
+      "pmtilesUrl": "/data/tiles/RD-Dienststellen/RD-BY.pmtiles",
+      "sourceId": "rd_by",
+      "sourceLayer": "rd_by"
+    },
+    {
+      "id": "RD-NÖ",
+      "file": "RD-NÖ.pmtiles",
+      "size": 75859,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "b2e24f92878b",
+      "pmtilesUrl": "/data/tiles/RD-Dienststellen/RD-NÖ.pmtiles",
+      "sourceId": "rd_n",
+      "sourceLayer": "rd_n"
+    },
+    {
+      "id": "RD-OO-NEF",
+      "file": "RD-OO-NEF.pmtiles",
+      "size": 56864,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "9492220166bd",
+      "pmtilesUrl": "/data/tiles/RD-Dienststellen/RD-OO-NEF.pmtiles",
+      "sourceId": "rd_oo_nef",
+      "sourceLayer": "rd_oo_nef"
+    },
+    {
+      "id": "RD-OO-SEW",
+      "file": "RD-OO-SEW.pmtiles",
+      "size": 192056,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "946aceee2301",
+      "pmtilesUrl": "/data/tiles/RD-Dienststellen/RD-OO-SEW.pmtiles",
+      "sourceId": "rd_oo_sew",
+      "sourceLayer": "rd_oo_sew"
+    },
+    {
+      "id": "RD-SBG",
+      "file": "RD-SBG.pmtiles",
+      "size": 40668,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "1f1cc07f5c0d",
+      "pmtilesUrl": "/data/tiles/RD-Dienststellen/RD-SBG.pmtiles",
+      "sourceId": "rd_sbg",
+      "sourceLayer": "rd_sbg"
+    },
+    {
+      "id": "RD-STMK",
+      "file": "RD-STMK.pmtiles",
+      "size": 32175,
+      "mtime": "2025-12-22T11:33:33.000Z",
+      "sha256_12": "e31fb6d2e5b1",
+      "pmtilesUrl": "/data/tiles/RD-Dienststellen/RD-STMK.pmtiles",
+      "sourceId": "rd_stmk",
+      "sourceLayer": "rd_stmk"
+    }
+  ]
+}

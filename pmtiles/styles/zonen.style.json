@@ -1,0 +1,1405 @@
+{
+  "version": 8,
+  "name": "OE5ITH Zonen (CI)",
+  "metadata": {
+    "generator": "scripts/generate-pmtiles-folder-styles.js",
+    "folder": "Zonen",
+    "sourceLayers": [
+      "nef_am",
+      "nef_hrv",
+      "nef_inn",
+      "nef_rlz",
+      "nef_skg",
+      "nef_srki",
+      "sew_hrv",
+      "sew_inn",
+      "sew_n",
+      "sew_rlz",
+      "sew_sbg",
+      "sew_skg",
+      "sew_stmk",
+      "sew_srki"
+    ],
+    "ci": {
+      "topbarHeight": 60,
+      "accent": "#3b82f6"
+    }
+  },
+  "glyphs": "https://tiles.oe5ith.at/assets/fonts/{fontstack}/{range}.pbf",
+  "sprite": "https://tiles.oe5ith.at/assets/sprites/oe5ith-markers",
+  "sources": {
+    "folder": {
+      "type": "vector",
+      "url": "pmtiles://https://tiles.oe5ith.at/pmtiles/Zonen.pmtiles",
+      "minzoom": 0,
+      "maxzoom": 15
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#1a1a1a"
+      }
+    },
+    {
+      "id": "zonen-nef_am-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "nef_am",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-nef_am-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "nef_am",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-nef_am-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "nef_am",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-nef_hrv-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "nef_hrv",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-nef_hrv-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "nef_hrv",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-nef_hrv-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "nef_hrv",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-nef_inn-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "nef_inn",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-nef_inn-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "nef_inn",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-nef_inn-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "nef_inn",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-nef_rlz-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "nef_rlz",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-nef_rlz-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "nef_rlz",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-nef_rlz-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "nef_rlz",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-nef_skg-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "nef_skg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-nef_skg-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "nef_skg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-nef_skg-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "nef_skg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-nef_srki-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "nef_srki",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-nef_srki-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "nef_srki",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-nef_srki-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "nef_srki",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-sew_hrv-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "sew_hrv",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-sew_hrv-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "sew_hrv",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-sew_hrv-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "sew_hrv",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-sew_inn-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "sew_inn",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-sew_inn-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "sew_inn",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-sew_inn-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "sew_inn",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-sew_n-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "sew_n",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-sew_n-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "sew_n",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-sew_n-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "sew_n",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-sew_rlz-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "sew_rlz",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-sew_rlz-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "sew_rlz",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-sew_rlz-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "sew_rlz",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-sew_sbg-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "sew_sbg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-sew_sbg-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "sew_sbg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-sew_sbg-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "sew_sbg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-sew_skg-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "sew_skg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-sew_skg-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "sew_skg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-sew_skg-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "sew_skg",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-sew_srki-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "sew_srki",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-sew_srki-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "sew_srki",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-sew_srki-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "sew_srki",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    },
+    {
+      "id": "zonen-sew_stmk-fill",
+      "type": "fill",
+      "source": "folder",
+      "source-layer": "sew_stmk",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "fill-color": "#3b82f6",
+        "fill-opacity": 0.2,
+        "fill-outline-color": "#333333"
+      }
+    },
+    {
+      "id": "zonen-sew_stmk-line",
+      "type": "line",
+      "source": "folder",
+      "source-layer": "sew_stmk",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "LineString",
+          "MultiLineString",
+          "Polygon",
+          "MultiPolygon"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "line-color": "#3b82f6",
+        "line-width": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1.5,
+          12,
+          3.5
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "zonen-sew_stmk-circle",
+      "type": "circle",
+      "source": "folder",
+      "source-layer": "sew_stmk",
+      "filter": [
+        "match",
+        [
+          "geometry-type"
+        ],
+        [
+          "Point",
+          "MultiPoint"
+        ],
+        true,
+        false
+      ],
+      "paint": {
+        "circle-color": "#3b82f6",
+        "circle-stroke-color": "#e0e0e0",
+        "circle-stroke-width": 1,
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          3.5,
+          12,
+          6.5
+        ],
+        "circle-opacity": 0.95
+      }
+    }
+  ]
+}
