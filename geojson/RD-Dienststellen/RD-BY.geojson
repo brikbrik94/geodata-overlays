@@ -1,0 +1,1285 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-10-06T17:27:44Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/89815668",
+        "addr:city": "Passau",
+        "addr:country": "DE",
+        "addr:housenumber": "1",
+        "addr:postcode": "94032",
+        "addr:street": "Rotkreuzstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Passau Rotkreuzstraße",
+        "operator": "Bayerisches Rotes Kreuz",
+        "short_name": "BRK",
+        "source": "geoimage.at",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4362628,
+          48.5651144
+        ]
+      },
+      "id": "way/89815668"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/114648163",
+        "addr:city": "Traunstein",
+        "addr:country": "DE",
+        "addr:housenumber": "13",
+        "addr:postcode": "83278",
+        "addr:street": "Gewerbepark Kaserne",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "email": "info@kvtraunstein.brk.de",
+        "emergency": "ambulance_station",
+        "fax": "+49 861 98973 33",
+        "name": "Bayerisches Rotes Kreuz - Kreisverband Traunstein",
+        "operator": "Bayerisches Rotes Kreuz",
+        "phone": "+49 861 98973 0",
+        "short_name": "BRK",
+        "website": "https://www.brk-traunstein.de/",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.6337034,
+          47.8797803
+        ]
+      },
+      "id": "way/114648163"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/120246997",
+        "addr:city": "Freilassing",
+        "addr:country": "DE",
+        "addr:housenumber": "58",
+        "addr:postcode": "83395",
+        "addr:street": "Vinzentiusstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Freilassing",
+        "operator": "Bayerisches Rotes Kreuz",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.9786512,
+          47.8491207
+        ]
+      },
+      "id": "way/120246997"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/127736223",
+        "addr:city": "Ruhpolding",
+        "addr:country": "DE",
+        "addr:housenumber": "6",
+        "addr:postcode": "83324",
+        "addr:street": "Waldbahnstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Ruhpolding",
+        "operator": "Bayrisches Rotes Kreuz",
+        "phone": "+49 8663 2222",
+        "source": "bing",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.6507222,
+          47.7608561
+        ]
+      },
+      "id": "way/127736223"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/144595280",
+        "addr:city": "Passau",
+        "addr:country": "DE",
+        "addr:housenumber": "50",
+        "addr:postcode": "94034",
+        "addr:street": "Vilshofener Straße",
+        "brand": "Malteser Hilfsdienst",
+        "brand:short": "MHD",
+        "brand:wikidata": "Q1318397",
+        "building": "yes",
+        "building:levels": "1",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Passau Hacklberg",
+        "operator": "Malteser Hilfsdienst",
+        "roof:ridge:direction": "NE",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4420065,
+          48.5767508
+        ]
+      },
+      "id": "way/144595280"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/165515244",
+        "addr:city": "Grafenau",
+        "addr:country": "DE",
+        "addr:housenumber": "4",
+        "addr:postcode": "94481",
+        "addr:street": "Sachsenring",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Grafenau",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Freyung-Grafenau",
+        "ref": "RW Grafenau",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3926322,
+          48.8608304
+        ]
+      },
+      "id": "way/165515244"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/176028649",
+        "addr:city": "Traunreut",
+        "addr:country": "DE",
+        "addr:housenumber": "5",
+        "addr:postcode": "83301",
+        "addr:street": "Munastraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Traunreut",
+        "operator": "BRK",
+        "phone": "+49 8669 2222",
+        "short_name": "BRK",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.5886756,
+          47.9643574
+        ]
+      },
+      "id": "way/176028649"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/185645450",
+        "addr:city": "Garching an der Alz",
+        "addr:country": "DE",
+        "addr:housenumber": "44a",
+        "addr:postcode": "84518",
+        "addr:street": "Nikolausstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Garching",
+        "operator": "Bayerisches Rotes Kreuz",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.5887497,
+          48.1345592
+        ]
+      },
+      "id": "way/185645450"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/198952068",
+        "addr:city": "Freyung",
+        "addr:housenumber": "14",
+        "addr:place": "Bannholz",
+        "addr:postcode": "94078",
+        "brand": "Rettungsdienst Stadler",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Freyung Stadler",
+        "operator": "Rettungsdienst Stadler",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.5487306,
+          48.8187532
+        ]
+      },
+      "id": "way/198952068"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/200659461",
+        "addr:city": "Altötting",
+        "addr:country": "DE",
+        "addr:housenumber": "18",
+        "addr:postcode": "84503",
+        "addr:street": "Pater-Joseph-Anton-Straße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Altötting",
+        "operator": "Bayerisches Rotes Kreuz",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.6713834,
+          48.2279879
+        ]
+      },
+      "id": "way/200659461"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/203134779",
+        "addr:city": "Passau",
+        "addr:country": "DE",
+        "addr:housenumber": "20",
+        "addr:postcode": "94034",
+        "addr:street": "Kastenreuth",
+        "addr:suburb": "Grubweg",
+        "brand": "Rettungsdienst Stadler",
+        "building": "yes",
+        "contact:email": "info@ambulanz-stadler.de",
+        "contact:phone": "+49 8551 19218",
+        "email": "info@ambulanz-stadler.de",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Grubweg",
+        "operator": "Rettungsdienst Stadler",
+        "phone": "+49 8551 19218",
+        "website": "https://www.rettung-stadler.de/ausstattung/grubweg/",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4783687,
+          48.5964505
+        ]
+      },
+      "id": "way/203134779"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/215113679",
+        "addr:city": "Bad Reichenhall",
+        "addr:country": "DE",
+        "addr:housenumber": "18",
+        "addr:postcode": "83435",
+        "addr:street": "Riedelstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Bad Reichenhall",
+        "operator": "BRK",
+        "short_name": "BRK Bad Reichenhall",
+        "website": "https://www.kvberchtesgaden.brk.de/",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.8699083,
+          47.7282742
+        ]
+      },
+      "id": "way/215113679"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/216617611",
+        "addr:city": "Arnstorf",
+        "addr:country": "DE",
+        "addr:housenumber": "1",
+        "addr:postcode": "94424",
+        "addr:street": "Feuerhausstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Arnstorf",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Rottal-Inn",
+        "ref": "RW Arnstorf",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.81911,
+          48.5627622
+        ]
+      },
+      "id": "way/216617611"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/224491775",
+        "addr:city": "Grassau",
+        "addr:housenumber": "10",
+        "addr:postcode": "83224",
+        "addr:street": "Staffenstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Grassau",
+        "operator": "Bayerisches Rotes Kreuz",
+        "smoking": "outside",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.4527889,
+          47.7800951
+        ]
+      },
+      "id": "way/224491775"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/225000834",
+        "addr:city": "Trostberg",
+        "addr:housenumber": "10",
+        "addr:postcode": "83308",
+        "addr:street": "Siegerthöhe",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Trostberg",
+        "operator": "Bayerisches Rotes Kreuz",
+        "phone": "+49 8621 645969",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.5431473,
+          48.0296233
+        ]
+      },
+      "id": "way/225000834"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/230777391",
+        "addr:city": "Berchtesgaden",
+        "addr:country": "DE",
+        "addr:housenumber": "2",
+        "addr:postcode": "83471",
+        "addr:street": "Wiesenweg",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "brand:wikipedia": "de:Bayerisches Rotes Kreuz",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Berchtesgaden",
+        "operator": "Bayerisches Rotes Kreuz",
+        "short_name": "BRK Berchtesgaden",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.0183261,
+          47.6413626
+        ]
+      },
+      "id": "way/230777391"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/242592716",
+        "addr:city": "Aidenbach",
+        "addr:housenumber": "15a",
+        "addr:postcode": "94501",
+        "addr:street": "Am Bahnhof",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "building:material": "plaster",
+        "description": "Außenstelle der Rettungswache Vilshofen",
+        "emergency": "ambulance_station",
+        "name": "Rettungsstellplatz Aidenbach",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Passau",
+        "panoramax": "d40282cd-e6f7-444d-978e-97ab003a740a",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.080673,
+          48.5717296
+        ]
+      },
+      "id": "way/242592716"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/242594584",
+        "addr:city": "Vilshofen an der Donau",
+        "addr:country": "DE",
+        "addr:housenumber": "5",
+        "addr:postcode": "94474",
+        "addr:street": "Jahnallee",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Vilshofen",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Passau",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.1822905,
+          48.6359883
+        ]
+      },
+      "id": "way/242594584"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/243125267",
+        "addr:city": "Simbach am Inn",
+        "addr:country": "DE",
+        "addr:housenumber": "2",
+        "addr:postcode": "84359",
+        "addr:street": "Kreuzweg",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Simbach am Inn",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Rottal-Inn",
+        "ref": "RW Simbach am Inn",
+        "source": "Bing Sat",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.0191644,
+          48.268933
+        ]
+      },
+      "id": "way/243125267"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/255407602",
+        "addr:city": "Reit im Winkl",
+        "addr:country": "DE",
+        "addr:housenumber": "7",
+        "addr:postcode": "83242",
+        "addr:street": "Am Donnersgattern",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Reit im Winkl",
+        "operator": "Rettungswache Reit im Winkl",
+        "phone": "+49 8640 8453",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.4888023,
+          47.670091
+        ]
+      },
+      "id": "way/255407602"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/261508663",
+        "addr:city": "Haidmühle",
+        "addr:housenumber": "154",
+        "addr:postcode": "94145",
+        "addr:street": "Bahnhofstraße",
+        "brand": "Malteser Hilfsdienst",
+        "brand:short": "MHD",
+        "brand:wikidata": "Q1318397",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Haidmühle",
+        "operator": "Malteser Hilfsdienst Diözesanverband Passau",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.773966,
+          48.8238839
+        ]
+      },
+      "id": "way/261508663"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/262113932",
+        "addr:city": "Teisendorf",
+        "addr:housenumber": "1",
+        "addr:postcode": "83317",
+        "addr:street": "Wimmerer Straße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Teisendorf",
+        "operator": "Bayrisches Rotes Kreuz",
+        "short_name": "BRK Teisendorf",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.8219986,
+          47.8500192
+        ]
+      },
+      "id": "way/262113932"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/305690809",
+        "addr:city": "Bad Griesbach i.Rottal",
+        "addr:country": "DE",
+        "addr:housenumber": "4",
+        "addr:postcode": "94086",
+        "addr:street": "Rot-Kreuz-Straße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Bad Griesbach",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Passau",
+        "wheelchair": "no",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.1943729,
+          48.4487235
+        ]
+      },
+      "id": "way/305690809"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/308213845",
+        "addr:city": "Neureichenau",
+        "addr:country": "DE",
+        "addr:housenumber": "5",
+        "addr:postcode": "94089",
+        "addr:street": "Schulstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Neureichenau",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Freyung-Grafenau",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.7496631,
+          48.7481079
+        ]
+      },
+      "id": "way/308213845"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/313708433",
+        "addr:city": "Pfarrkirchen",
+        "addr:country": "DE",
+        "addr:housenumber": "7",
+        "addr:postcode": "84347",
+        "addr:street": "Arno-Jacoby-Straße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Pfarrkirchen",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Rottal-Inn",
+        "ref": "RW Pfarrkirchen",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.9417125,
+          48.4202727
+        ]
+      },
+      "id": "way/313708433"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/314428989",
+        "addr:city": "Hutthurm",
+        "addr:housenumber": "2",
+        "addr:postcode": "94116",
+        "addr:street": "Lusenstraße",
+        "brand": "Malteser Hilfsdienst",
+        "brand:short": "MHD",
+        "brand:wikidata": "Q1318397",
+        "building": "yes",
+        "description": "Betrieben durch Malteser Hilfsdienst Diözesanverband Passau\nBesetzt im Wechsel mit BRK und Malteser",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Hutthurm",
+        "operator": "Malteser Hilfsdienst Diözesanverband Passau",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4709442,
+          48.6746031
+        ]
+      },
+      "id": "way/314428989"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/330387418",
+        "addr:city": "Pocking",
+        "addr:country": "DE",
+        "addr:housenumber": "5",
+        "addr:postcode": "94060",
+        "addr:street": "Bajuwarenstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Pocking",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Passau",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3240972,
+          48.4040878
+        ]
+      },
+      "id": "way/330387418"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/358591008",
+        "addr:city": "Fridolfing",
+        "addr:housenumber": "2",
+        "addr:postcode": "83413",
+        "addr:street": "Krankenhausstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Fridolfing",
+        "operator": "Bayerisches Rotes Kreuz",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.8207812,
+          47.9995592
+        ]
+      },
+      "id": "way/358591008"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/379019100",
+        "addr:city": "Tann",
+        "addr:country": "DE",
+        "addr:housenumber": "37 a",
+        "addr:postcode": "84367",
+        "addr:street": "Dr.-Heuwieser-Straße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "description": "Außenstelle der Rettungswache Simbach am Inn",
+        "emergency": "ambulance_station",
+        "name": "Rettungswagenstellplatz Tann",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Rottal-Inn",
+        "ref": "RW Tann",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.8898971,
+          48.3135579
+        ]
+      },
+      "id": "way/379019100"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/389237717",
+        "addr:city": "Sankt Oswald-Riedlhütte",
+        "addr:housenumber": "1",
+        "addr:postcode": "94566",
+        "addr:street": "Am Hochfeld",
+        "brand": "IMS Rettungsdienst GmbH",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Riedlhütte",
+        "operator": "IMS Rettungsdienst GmbH",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3843615,
+          48.9086001
+        ]
+      },
+      "id": "way/389237717"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/428866934",
+        "addr:city": "Schöfweg",
+        "addr:housenumber": "10",
+        "addr:postcode": "94572",
+        "addr:street": "Herzog-Wilhelm-Straße",
+        "brand": "IMS Rettungsdienst GmbH",
+        "building": "yes",
+        "contact:facebook": "https://www.facebook.com/pages/category/Emergency-Rescue-Service/IMS-Rettungsdienst-GmbH-1031520803537760/?locale2=de_DE",
+        "emergency": "ambulance_station",
+        "name": "IMS Rettungsdienst",
+        "operator": "IMS Rettungsdienst GmbH",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.2253104,
+          48.8394702
+        ]
+      },
+      "id": "way/428866934"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/467480573",
+        "addr:city": "Fürstenzell",
+        "addr:country": "DE",
+        "addr:housenumber": "31 a",
+        "addr:postcode": "94081",
+        "addr:street": "Passauer Straße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "garage",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Fürstenzell",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Passau",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3248276,
+          48.5238151
+        ]
+      },
+      "id": "way/467480573"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/487264936",
+        "addr:city": "Freyung",
+        "addr:country": "DE",
+        "addr:housenumber": "7",
+        "addr:postcode": "94078",
+        "addr:street": "Kolpingstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Freyung",
+        "operator": "Rotes Kreuz Kreisverband Freyung-Grafenau",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.5487932,
+          48.8056826
+        ]
+      },
+      "id": "way/487264936"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/630169656",
+        "addr:city": "Eging am See",
+        "addr:country": "DE",
+        "addr:housenumber": "17",
+        "addr:postcode": "94535",
+        "addr:street": "Grafenauer Straße",
+        "brand": "IMS Rettungsdienst GmbH",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Eging",
+        "operator": "IMS Rettungsdienst GmbH",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.2684238,
+          48.7182046
+        ]
+      },
+      "id": "way/630169656"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/704270000",
+        "addr:city": "Rotthalmünster",
+        "addr:country": "DE",
+        "addr:postcode": "94094",
+        "addr:street": "Schambacher Straße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Rotthalmünster",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Passau",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.2032511,
+          48.353349
+        ]
+      },
+      "id": "way/704270000"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/704270002",
+        "addr:city": "Mauth",
+        "addr:housenumber": "16",
+        "addr:postcode": "94151",
+        "addr:street": "Kirchenweg",
+        "brand": "Malteser Hilfsdienst",
+        "brand:short": "MHD",
+        "brand:wikidata": "Q1318397",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Annathal",
+        "operator": "Malteser Hilfsdienst Diözesanverband Passau",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.6121697,
+          48.8743733
+        ]
+      },
+      "id": "way/704270002"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/704270003",
+        "addr:city": "Hauzenberg",
+        "addr:country": "DE",
+        "addr:housenumber": "5 a",
+        "addr:postcode": "94051",
+        "addr:street": "Florianstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Hauzenberg",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Passau",
+        "ref": "RW Hauzenberg",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.6309718,
+          48.6567519
+        ]
+      },
+      "id": "way/704270003"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/704270007",
+        "addr:city": "Tittling",
+        "addr:country": "DE",
+        "addr:housenumber": "3",
+        "addr:postcode": "94104",
+        "addr:street": "Jägersteig",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Tittling",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Passau",
+        "ref": "RW Tittling",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3849054,
+          48.7233895
+        ]
+      },
+      "id": "way/704270007"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/704270009",
+        "addr:city": "Wegscheid",
+        "addr:housenumber": "14",
+        "addr:postcode": "94110",
+        "addr:street": "Pölzöd",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Wegscheid",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Passau",
+        "ref": "RW Wegscheid",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.7252271,
+          48.5749834
+        ]
+      },
+      "id": "way/704270009"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/704273142",
+        "addr:city": "Eggenfelden",
+        "addr:housenumber": "47",
+        "addr:postcode": "84307",
+        "addr:street": "Pfarrkirchener Straße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Eggenfelden",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Rottal-Inn",
+        "ref": "RW Eggenfelden",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.7673515,
+          48.4050561
+        ]
+      },
+      "id": "way/704273142"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1010889150",
+        "addr:city": "Roßbach",
+        "addr:housenumber": "27",
+        "addr:postcode": "94439",
+        "addr:street": "Münchsdorfer Straße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "description": "Außenstelle der Rettungswache Arnstorf",
+        "emergency": "ambulance_station",
+        "name": "Retungswagenstellplatz Roßbach",
+        "operator": "Bayerisches Rotes Kreuz",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.9367536,
+          48.5994055
+        ]
+      },
+      "id": "way/1010889150"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1123658375",
+        "addr:city": "Waldkirchen",
+        "addr:housenumber": "23",
+        "addr:postcode": "94065",
+        "addr:street": "Jandelsbrunner Straße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "civic",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Waldkirchen",
+        "operator": "Rotes Kreuz Kreisverband Freyung-Grafenau",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.6043076,
+          48.7280132
+        ]
+      },
+      "id": "way/1123658375"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1155595022",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Burghausen",
+        "operator": "Bayerisches Rotes Kreuz",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.8435472,
+          48.1677064
+        ]
+      },
+      "id": "way/1155595022"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1333483402",
+        "addr:city": "Saaldorf-Surheim",
+        "addr:housenumber": "3",
+        "addr:postcode": "83416",
+        "addr:street": "Am Bauhof",
+        "brand": "IMS Rettungsdienst GmbH",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Saaldorf-Surheim",
+        "operator": "IMS Rettungsdienst GmbH",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.9469321,
+          47.869771
+        ]
+      },
+      "id": "way/1333483402"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1435617866",
+        "addr:city": "Bad Birnbach",
+        "addr:housenumber": "10",
+        "addr:postcode": "84364",
+        "addr:street": "Emil-Schwate-Straße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "building": "yes",
+        "description": "Außenstelle der Rettungswache Pfarrkirchen",
+        "emergency": "ambulance_station",
+        "name": "Rettungswagenstellplatz Bad Birnbach",
+        "operator": "Bayerisches Rotes Kreuz",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.0956976,
+          48.4392659
+        ]
+      },
+      "id": "way/1435617866"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1435671497",
+        "addr:city": "Perlesreut",
+        "addr:housenumber": "24b",
+        "addr:postcode": "94157",
+        "addr:street": "Waldenreuter Straße",
+        "brand": "Rettungsdienst Stadler",
+        "building": "yes",
+        "emergency": "ambulance_station",
+        "name": "Rettungswache Perlesreuth",
+        "operator": "Rettungsdienst Stadler",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.4331749,
+          48.7774207
+        ]
+      },
+      "id": "way/1435671497"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7076888715",
+        "addr:city": "Gangkofen",
+        "addr:country": "DE",
+        "addr:housenumber": "24",
+        "addr:postcode": "84140",
+        "addr:street": "Bahnhofstraße",
+        "brand": "Bayerisches Rotes Kreuz",
+        "brand:short": "BRK",
+        "brand:wikidata": "Q812433",
+        "description": "Außenstelle der Rettungswache Eggenfelden",
+        "emergency": "ambulance_station",
+        "name": "Rettungswagenstellplatz Gangenkofen",
+        "operator": "Bayerisches Rotes Kreuz Kreisverband Rottal-Inn",
+        "ref": "RW Gangkofen"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.5604452,
+          48.4378672
+        ]
+      },
+      "id": "node/7076888715"
+    }
+  ]
+}
