@@ -41,6 +41,8 @@ ICON_BY_FOLDER = {
     "nah-stuetzpunkte": "nah-pin",
 }
 ZONEN_FALLBACK_COLOR = "#6b7280"
+ANFAHRTSZEIT_COLOR_RAMP = ["#22c55e", "#84cc16", "#eab308", "#f59e0b", "#f97316", "#dc2626"]
+LEITSTELLEN_COLOR_PALETTE = ["#2563eb", "#16a34a", "#f59e0b", "#dc2626", "#7c3aed", "#0891b2"]
 
 
 @dataclass(frozen=True)
@@ -299,6 +301,10 @@ def point_icon_for_bundle(bundle: BundleSpec) -> Any:
 def build_style(bundle: BundleSpec, base_url: str, sprite_url: Optional[str], glyphs_url: Optional[str]) -> Dict[str, Any]:
     if bundle.slug == "zonen":
         return build_zonen_style(bundle, base_url, sprite_url, glyphs_url)
+    if bundle.slug == "anfahrtszeit-linz":
+        return build_anfahrtszeit_style(bundle, base_url, sprite_url, glyphs_url)
+    if bundle.slug == "leitstellen-bereiche":
+        return build_leitstellen_bereiche_style(bundle, base_url, sprite_url, glyphs_url)
 
     template = load_template_style(bundle)
     if template is not None:
@@ -452,6 +458,130 @@ def build_zonen_style(bundle: BundleSpec, base_url: str, sprite_url: Optional[st
         add_zonen_line_layer(layers, base_id, spec.layer, color_expression)
 
     return style
+
+
+
+def add_constant_fill_layer(style_layers: List[Dict[str, Any]], base_id: str, source_layer: str, color: str) -> None:
+    style_layers.append({
+        "id": f"{base_id}-fill",
+        "type": "fill",
+        "source": DEFAULT_SOURCE_ID,
+        "source-layer": source_layer,
+        "paint": {
+            "fill-color": color,
+            "fill-opacity": 0.2,
+            "fill-outline-color": BORDER,
+        },
+    })
+
+
+def add_constant_line_layer(style_layers: List[Dict[str, Any]], base_id: str, source_layer: str, color: str) -> None:
+    style_layers.append({
+        "id": f"{base_id}-line",
+        "type": "line",
+        "source": DEFAULT_SOURCE_ID,
+        "source-layer": source_layer,
+        "paint": {
+            "line-color": color,
+            "line-width": 2,
+            "line-opacity": 0.9,
+        },
+    })
+
+
+def build_polygon_bundle_style(
+    bundle: BundleSpec,
+    base_url: str,
+    sprite_url: Optional[str],
+    glyphs_url: Optional[str],
+    color_by_layer: Dict[str, str],
+    metadata_extra: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    pmtiles_url = f"pmtiles://{base_url.rstrip('/')}/{bundle.pmtiles_relpath.as_posix()}"
+    metadata: Dict[str, Any] = {
+        "generator": "build_hosted_overlays.py",
+        "folder": bundle.title,
+        "sourceLayers": [layer.layer for layer in bundle.layers],
+    }
+    if metadata_extra:
+        metadata.update(metadata_extra)
+
+    style: Dict[str, Any] = {
+        "version": 8,
+        "name": f"OE5ITH {bundle.title} (CI)",
+        "metadata": metadata,
+        "sources": {
+            DEFAULT_SOURCE_ID: {
+                "type": "vector",
+                "url": pmtiles_url,
+                "minzoom": 0,
+                "maxzoom": DEFAULT_MAXZOOM,
+            }
+        },
+        "layers": [],
+    }
+    if glyphs_url:
+        style["glyphs"] = glyphs_url
+    if sprite_url:
+        style["sprite"] = sprite_url
+
+    layers = style["layers"]
+    add_background_layer(layers)
+    for spec in bundle.layers:
+        color = color_by_layer.get(spec.layer, ACCENT)
+        base_id = f"{bundle.slug}-{spec.layer}"
+        add_constant_fill_layer(layers, base_id, spec.layer, color)
+        add_constant_line_layer(layers, base_id, spec.layer, color)
+    return style
+
+
+def anfahrtszeit_sort_key(layer_name: str) -> tuple[int, int]:
+    parts = [int(part) for part in re.findall(r"\d+", layer_name)]
+    if len(parts) >= 2:
+        return (max(parts[0], parts[1]), min(parts[0], parts[1]))
+    if parts:
+        return (parts[0], parts[0])
+    return (10**9, 10**9)
+
+
+def pick_palette_color(palette: Sequence[str], index: int, total: int) -> str:
+    if total <= 1:
+        return palette[0]
+    if total <= len(palette):
+        palette_index = round(index * (len(palette) - 1) / (total - 1))
+        return palette[palette_index]
+    return palette[index % len(palette)]
+
+
+def build_anfahrtszeit_style(bundle: BundleSpec, base_url: str, sprite_url: Optional[str], glyphs_url: Optional[str]) -> Dict[str, Any]:
+    ordered_layers = sorted(bundle.layers, key=lambda spec: anfahrtszeit_sort_key(spec.layer))
+    color_by_layer = {
+        spec.layer: pick_palette_color(ANFAHRTSZEIT_COLOR_RAMP, index, len(ordered_layers))
+        for index, spec in enumerate(ordered_layers)
+    }
+    return build_polygon_bundle_style(
+        bundle,
+        base_url,
+        sprite_url,
+        glyphs_url,
+        color_by_layer,
+        metadata_extra={"colorStrategy": "travel-time-ramp"},
+    )
+
+
+def build_leitstellen_bereiche_style(bundle: BundleSpec, base_url: str, sprite_url: Optional[str], glyphs_url: Optional[str]) -> Dict[str, Any]:
+    color_by_layer = {
+        spec.layer: pick_palette_color(LEITSTELLEN_COLOR_PALETTE, index, len(bundle.layers))
+        for index, spec in enumerate(bundle.layers)
+    }
+    return build_polygon_bundle_style(
+        bundle,
+        base_url,
+        sprite_url,
+        glyphs_url,
+        color_by_layer,
+        metadata_extra={"colorStrategy": "source-layer-palette"},
+    )
 
 
 
