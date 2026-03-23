@@ -32,12 +32,23 @@ TEXT = "#e0e0e0"
 HALO = "#1a1a1a"
 DEFAULT_MAXZOOM = 15
 TEMPLATE_STYLES_DIR = Path(__file__).resolve().parent / "pmtiles" / "styles"
+REPO_ROOT = Path(__file__).resolve().parent
+ZONEN_COLOR_MAPPING_PATH = REPO_ROOT / "geojson" / "Zonen" / "farbzuordnung.json"
 DEFAULT_SOURCE_ID = "folder"
 DEFAULT_FONT_STACK = ["Segoe UI Regular", "Arial Unicode MS Regular"]
 SYMBOL_FOLDERS = {"rd-dienststellen", "nah-stuetzpunkte"}
 ICON_BY_FOLDER = {
     "nah-stuetzpunkte": "nah-pin",
 }
+ZONEN_GROUP_COLORS = {
+    1: "#2563eb",
+    2: "#16a34a",
+    3: "#f59e0b",
+    4: "#dc2626",
+    5: "#7c3aed",
+    6: "#0891b2",
+}
+ZONEN_FALLBACK_COLOR = "#6b7280"
 
 
 @dataclass(frozen=True)
@@ -357,6 +368,37 @@ def load_template_style(bundle: BundleSpec) -> Optional[Dict[str, Any]]:
     return json.loads(candidate.read_text(encoding="utf-8"))
 
 
+def load_zonen_name_groups() -> Dict[str, int]:
+    payload = json.loads(ZONEN_COLOR_MAPPING_PATH.read_text(encoding="utf-8"))
+    return {str(name): int(group) for name, group in payload.items()}
+
+
+def build_zonen_match_expression() -> List[Any]:
+    expression: List[Any] = ["match", ["get", "name"]]
+    for name, group in sorted(load_zonen_name_groups().items()):
+        expression.extend([name, ZONEN_GROUP_COLORS.get(group, ZONEN_FALLBACK_COLOR)])
+    expression.append(ZONEN_FALLBACK_COLOR)
+    return expression
+
+
+def apply_zonen_post_processor(style: Dict[str, Any]) -> Dict[str, Any]:
+    color_expression = build_zonen_match_expression()
+    style.setdefault("metadata", {})["zonenColorFallback"] = ZONEN_FALLBACK_COLOR
+    style["metadata"]["zonenColorGroups"] = ZONEN_GROUP_COLORS
+
+    for layer in style.get("layers", []):
+        paint = layer.get("paint")
+        if not isinstance(paint, dict):
+            continue
+        if "fill-color" in paint:
+            paint["fill-color"] = copy.deepcopy(color_expression)
+        if "line-color" in paint:
+            paint["line-color"] = copy.deepcopy(color_expression)
+        if "circle-color" in paint:
+            paint["circle-color"] = copy.deepcopy(color_expression)
+    return style
+
+
 def rewrite_template_style(bundle: BundleSpec, template: Dict[str, Any], base_url: str, sprite_url: Optional[str], glyphs_url: Optional[str]) -> Dict[str, Any]:
     style = copy.deepcopy(template)
     pmtiles_url = f"pmtiles://{base_url.rstrip('/')}/{bundle.pmtiles_relpath.as_posix()}"
@@ -376,6 +418,9 @@ def rewrite_template_style(bundle: BundleSpec, template: Dict[str, Any], base_ur
         style["glyphs"] = glyphs_url
     if sprite_url:
         style["sprite"] = sprite_url
+
+    if bundle.slug == "zonen":
+        return apply_zonen_post_processor(style)
 
     return style
 
