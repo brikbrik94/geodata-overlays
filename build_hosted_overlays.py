@@ -34,7 +34,6 @@ DEFAULT_SOURCE_ID = "folder"
 DEFAULT_FONT_STACK = ["Segoe UI Regular", "Arial Unicode MS Regular"]
 SYMBOL_FOLDERS = {"rd-dienststellen", "nah-stuetzpunkte"}
 ICON_BY_FOLDER = {
-    "rd-dienststellen": "rd-pin",
     "nah-stuetzpunkte": "nah-pin",
 }
 
@@ -185,6 +184,23 @@ def geometry_filter(*geometry_types: str) -> List[Any]:
     return ["match", ["geometry-type"], list(geometry_types), True, False]
 
 
+def expr_truthy(prop: str) -> List[Any]:
+    return [
+        "any",
+        ["==", ["get", prop], True],
+        ["in", ["downcase", ["to-string", ["get", prop]]], ["literal", ["yes", "true", "1"]]],
+    ]
+
+
+def build_rd_icon_expression() -> List[Any]:
+    return [
+        "case",
+        ["==", ["get", "emergency"], "mountain_rescue"], "brd-pin",
+        expr_truthy("ambulance_station:emergency_doctor"), "nef-pin",
+        "rd-pin",
+    ]
+
+
 def add_background_layer(style_layers: List[Dict[str, Any]]) -> None:
     style_layers.append({
         "id": "background",
@@ -240,7 +256,7 @@ def add_circle_layer(style_layers: List[Dict[str, Any]], base_id: str, source_la
     })
 
 
-def add_symbol_layer(style_layers: List[Dict[str, Any]], base_id: str, source_layer: str, icon_image: str) -> None:
+def add_symbol_layer(style_layers: List[Dict[str, Any]], base_id: str, source_layer: str, icon_image: Any) -> None:
     style_layers.append({
         "id": f"{base_id}-symbols",
         "type": "symbol",
@@ -267,6 +283,12 @@ def add_symbol_layer(style_layers: List[Dict[str, Any]], base_id: str, source_la
 
 def should_use_symbol_points(bundle: BundleSpec) -> bool:
     return bundle.slug in SYMBOL_FOLDERS
+
+
+def point_icon_for_bundle(bundle: BundleSpec) -> Any:
+    if bundle.slug == "rd-dienststellen":
+        return build_rd_icon_expression()
+    return ICON_BY_FOLDER.get(bundle.slug, "fallback-pin")
 
 
 def build_style(bundle: BundleSpec, base_url: str, sprite_url: Optional[str], glyphs_url: Optional[str]) -> Dict[str, Any]:
@@ -302,7 +324,7 @@ def build_style(bundle: BundleSpec, base_url: str, sprite_url: Optional[str], gl
     add_background_layer(layers)
 
     use_symbol_points = should_use_symbol_points(bundle)
-    point_icon = ICON_BY_FOLDER.get(bundle.slug, "fallback-pin")
+    point_icon = point_icon_for_bundle(bundle)
 
     for spec in bundle.layers:
         base_id = f"{bundle.slug}-{spec.layer}"
