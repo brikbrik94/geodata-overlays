@@ -15,6 +15,7 @@ This matches the structure of the existing repo, where folders like
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import re
 import shutil
@@ -30,6 +31,7 @@ BORDER = "#333333"
 TEXT = "#e0e0e0"
 HALO = "#1a1a1a"
 DEFAULT_MAXZOOM = 15
+TEMPLATE_STYLES_DIR = Path(__file__).resolve().parent / "pmtiles" / "styles"
 DEFAULT_SOURCE_ID = "folder"
 DEFAULT_FONT_STACK = ["Segoe UI Regular", "Arial Unicode MS Regular"]
 SYMBOL_FOLDERS = {"rd-dienststellen", "nah-stuetzpunkte"}
@@ -292,6 +294,10 @@ def point_icon_for_bundle(bundle: BundleSpec) -> Any:
 
 
 def build_style(bundle: BundleSpec, base_url: str, sprite_url: Optional[str], glyphs_url: Optional[str]) -> Dict[str, Any]:
+    template = load_template_style(bundle)
+    if template is not None:
+        return rewrite_template_style(bundle, template, base_url, sprite_url, glyphs_url)
+
     pmtiles_url = f"pmtiles://{base_url.rstrip('/')}/{bundle.pmtiles_relpath.as_posix()}"
     style: Dict[str, Any] = {
         "version": 8,
@@ -337,6 +343,41 @@ def build_style(bundle: BundleSpec, base_url: str, sprite_url: Optional[str], gl
 
     return style
 
+
+
+
+def template_style_path(bundle: BundleSpec) -> Path:
+    return TEMPLATE_STYLES_DIR / f"{bundle.slug}.style.json"
+
+
+def load_template_style(bundle: BundleSpec) -> Optional[Dict[str, Any]]:
+    candidate = template_style_path(bundle)
+    if not candidate.exists():
+        return None
+    return json.loads(candidate.read_text(encoding="utf-8"))
+
+
+def rewrite_template_style(bundle: BundleSpec, template: Dict[str, Any], base_url: str, sprite_url: Optional[str], glyphs_url: Optional[str]) -> Dict[str, Any]:
+    style = copy.deepcopy(template)
+    pmtiles_url = f"pmtiles://{base_url.rstrip('/')}/{bundle.pmtiles_relpath.as_posix()}"
+
+    style["name"] = template.get("name") or f"OE5ITH {bundle.title} (CI)"
+    style.setdefault("metadata", {})["generator"] = "build_hosted_overlays.py"
+    style.setdefault("metadata", {})["folder"] = bundle.title
+    style.setdefault("metadata", {})["sourceLayers"] = [layer.layer for layer in bundle.layers]
+
+    for source in style.get("sources", {}).values():
+        if source.get("type") == "vector":
+            source["url"] = pmtiles_url
+            source.setdefault("minzoom", 0)
+            source.setdefault("maxzoom", DEFAULT_MAXZOOM)
+
+    if glyphs_url:
+        style["glyphs"] = glyphs_url
+    if sprite_url:
+        style["sprite"] = sprite_url
+
+    return style
 
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)

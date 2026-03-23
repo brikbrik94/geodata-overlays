@@ -34,6 +34,8 @@ Pro Bundle erzeugt das Skript:
 
 Zusätzlich wird ein globales `styles/index.json` geschrieben.
 
+Wenn unter `pmtiles/styles/<slug>.style.json` bereits ein kuratierter Style vorhanden ist, wird dieser als Vorlage für den Dist-Style übernommen und nur auf das neue Bundle umgeschrieben. Ohne Vorlage greift der generische Fallback-Generator.
+
 #### Beispiel: nur Styles + Manifeste erzeugen
 
 Wenn `tippecanoe` lokal noch nicht installiert ist:
