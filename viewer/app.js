@@ -9,6 +9,9 @@ function setStatus(message, extra) {
 const protocol = new pmtiles.Protocol();
 maplibregl.addProtocol('pmtiles', protocol.tile);
 
+const DEFAULT_GLYPHS = 'https://tiles.oe5ith.at/assets/fonts/{fontstack}/{range}.pbf';
+const DEFAULT_SPRITE = 'https://tiles.oe5ith.at/assets/sprites/oe5ith-markers';
+
 const map = new maplibregl.Map({
   container: 'map',
   center: [13.8, 48.2],
@@ -16,6 +19,8 @@ const map = new maplibregl.Map({
   hash: true,
   style: {
     version: 8,
+    glyphs: DEFAULT_GLYPHS,
+    sprite: DEFAULT_SPRITE,
     sources: {
       osm: {
         type: 'raster',

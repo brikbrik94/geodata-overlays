@@ -155,9 +155,13 @@ Dann im Browser öffnen:
 - liefert `/api/overlays` aus `styles/index.json`
 - liefert `/api/style?style=...` für das ausgewählte Style-JSON
 - schreibt PMTiles-Source-URLs für den lokalen Test auf `/bundle/...` um
+- unterstützt HTTP Byte-Range-Requests für PMTiles-Dateien
 - serviert das Build-Verzeichnis unter `/bundle/`
+- serviert lokale Runtime-Assets unter `/assets/` (z. B. `assets/fonts/...`)
 
 Damit kannst du lokal sehr schnell prüfen, ob dein Export und die Layer-Struktur so funktionieren, wie du es später auf dem Server hosten willst.
+
+Wenn du eigene Glyph-PBFs lokal testen willst, lege sie unter `assets/fonts/` ab. Der Testserver liefert diesen Ordner direkt unter `/assets/fonts/...` aus.
 
 ## Voraussetzungen
 

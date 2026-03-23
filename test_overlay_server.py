@@ -13,11 +13,12 @@ import mimetypes
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import parse_qs, urlparse
 
 VIEWER_DIR = Path(__file__).resolve().parent / "viewer"
 DEFAULT_BUNDLE_DIR = Path(__file__).resolve().parent / "dist"
+ASSETS_DIR = Path(__file__).resolve().parent / "assets"
 
 
 class OverlayRequestHandler(BaseHTTPRequestHandler):
@@ -42,6 +43,9 @@ class OverlayRequestHandler(BaseHTTPRequestHandler):
             return self.serve_file(VIEWER_DIR / "styles.css")
         if path == "/api/overlays":
             return self.serve_overlays()
+        if path.startswith("/assets/"):
+            relative = path.removeprefix("/assets/")
+            return self.serve_assets_file(relative)
         if path == "/api/style":
             query = parse_qs(parsed.query)
             style_file = query.get("style", [None])[0]
@@ -113,17 +117,29 @@ class OverlayRequestHandler(BaseHTTPRequestHandler):
         entries = self.read_index()
         entry = next((item for item in entries if item.get("styleFile") == style_file), None)
         pmtiles_file = None if entry is None else entry.get("pmtilesFile")
+        forwarded_proto = self.headers.get("X-Forwarded-Proto", "http")
+        host = self.headers.get("Host", f"{self.server.server_address[0]}:{self.server.server_address[1]}")
 
         if pmtiles_file:
+            local_pmtiles_url = f"pmtiles://{forwarded_proto}://{host}/bundle/{pmtiles_file}"
             for source in style.get("sources", {}).values():
                 if source.get("type") == "vector":
-                    source["url"] = f"pmtiles://http://{self.headers['Host']}/bundle/{pmtiles_file}"
+                    source["url"] = local_pmtiles_url
 
         style.setdefault("metadata", {})["localTestServer"] = {
             "styleFile": style_file,
             "pmtilesFile": pmtiles_file,
         }
         return style
+
+    def serve_assets_file(self, relative: str) -> None:
+        try:
+            asset_path = self.safe_assets_path(relative)
+        except ValueError as exc:
+            self.send_error(HTTPStatus.BAD_REQUEST, str(exc))
+            return
+
+        self.serve_file(asset_path)
 
     def serve_bundle_file(self, relative: str) -> None:
         try:
@@ -134,6 +150,13 @@ class OverlayRequestHandler(BaseHTTPRequestHandler):
 
         self.serve_file(bundle_path)
 
+    def safe_assets_path(self, relative: str) -> Path:
+        candidate = (ASSETS_DIR / relative).resolve()
+        assets_root = ASSETS_DIR.resolve()
+        if assets_root == candidate or assets_root in candidate.parents:
+            return candidate
+        raise ValueError("Ungültiger Pfad außerhalb des Assets-Verzeichnisses")
+
     def safe_bundle_path(self, relative: str) -> Path:
         candidate = (self.bundle_dir / relative).resolve()
         bundle_root = self.bundle_dir.resolve()
@@ -141,19 +164,68 @@ class OverlayRequestHandler(BaseHTTPRequestHandler):
             return candidate
         raise ValueError("Ungültiger Pfad außerhalb des Bundle-Verzeichnisses")
 
+    def parse_range_header(self, file_size: int) -> Optional[Tuple[int, int]]:
+        header = self.headers.get("Range")
+        if not header:
+            return None
+        if not header.startswith("bytes="):
+            raise ValueError("Nur Byte-Ranges werden unterstützt")
+
+        spec = header.removeprefix("bytes=").strip()
+        if "," in spec:
+            raise ValueError("Mehrfach-Ranges werden nicht unterstützt")
+
+        start_text, end_text = spec.split("-", 1)
+        if not start_text:
+            suffix_length = int(end_text)
+            if suffix_length <= 0:
+                raise ValueError("Ungültiger Suffix-Range")
+            start = max(file_size - suffix_length, 0)
+            end = file_size - 1
+        else:
+            start = int(start_text)
+            end = file_size - 1 if not end_text else int(end_text)
+
+        if start < 0 or end < start or start >= file_size:
+            raise ValueError("Range außerhalb der Datei")
+
+        return start, min(end, file_size - 1)
+
     def serve_file(self, path: Path) -> None:
         if not path.exists() or not path.is_file():
             self.send_error(HTTPStatus.NOT_FOUND, f"Datei nicht gefunden: {path}")
             return
 
+        file_size = path.stat().st_size
+        try:
+            byte_range = self.parse_range_header(file_size)
+        except ValueError:
+            self.send_response(HTTPStatus.REQUESTED_RANGE_NOT_SATISFIABLE)
+            self.send_header("Content-Range", f"bytes */{file_size}")
+            self.send_header("Accept-Ranges", "bytes")
+            self.end_headers()
+            return
+
         mime_type, _ = mimetypes.guess_type(path.name)
-        payload = path.read_bytes()
-        self.send_response(HTTPStatus.OK)
+        start = 0 if byte_range is None else byte_range[0]
+        end = file_size - 1 if byte_range is None else byte_range[1]
+        length = end - start + 1
+        status = HTTPStatus.PARTIAL_CONTENT if byte_range else HTTPStatus.OK
+
+        self.send_response(status)
         self.send_header("Content-Type", mime_type or "application/octet-stream")
-        self.send_header("Content-Length", str(len(payload)))
+        self.send_header("Accept-Ranges", "bytes")
+        self.send_header("Content-Length", str(length))
+        if byte_range:
+            self.send_header("Content-Range", f"bytes {start}-{end}/{file_size}")
         self.end_headers()
-        if not getattr(self, "head_only", False):
-            self.wfile.write(payload)
+
+        if getattr(self, "head_only", False):
+            return
+
+        with path.open("rb") as handle:
+            handle.seek(start)
+            self.wfile.write(handle.read(length))
 
     def send_json(self, payload: Any, status: HTTPStatus = HTTPStatus.OK) -> None:
         raw = json.dumps(payload, indent=2, ensure_ascii=False).encode("utf-8")
