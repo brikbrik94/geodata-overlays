@@ -204,10 +204,30 @@ def expr_truthy(prop: str) -> List[Any]:
 
 
 def build_rd_icon_expression() -> List[Any]:
+    org_text = [
+        "downcase",
+        [
+            "concat",
+            ["coalesce", ["to-string", ["get", "operator"]], ""], " ",
+            ["coalesce", ["to-string", ["get", "brand"]], ""], " ",
+            ["coalesce", ["to-string", ["get", "short_name"]], ""], " ",
+            ["coalesce", ["to-string", ["get", "name"]], ""],
+        ],
+    ]
     return [
+        "let", "org", org_text,
         "case",
         ["==", ["get", "emergency"], "mountain_rescue"], "brd-pin",
         expr_truthy("ambulance_station:emergency_doctor"), "nef-pin",
+        ["any", ["in", "bayerisches rotes kreuz", ["var", "org"]], ["in", " brk", ["var", "org"]]], "rd-brk",
+        ["any", ["in", "österreichisches rotes kreuz", ["var", "org"]], ["in", " oerk", ["var", "org"]], ["in", " örk", ["var", "org"]]], "rd-oerk",
+        ["any", ["in", "samariter", ["var", "org"]], ["in", " asb", ["var", "org"]]], "rd-asb",
+        ["any", ["in", "malteser", ["var", "org"]], ["in", " mhd", ["var", "org"]]], "rd-mhd",
+        ["any", ["in", "johanniter", ["var", "org"]], ["in", " juh", ["var", "org"]]], "rd-juh",
+        ["in", "stadler", ["var", "org"]], "rd-stadler",
+        ["any", ["in", "grünes kreuz", ["var", "org"]], ["in", "gruenes kreuz", ["var", "org"]], ["in", " gk", ["var", "org"]]], "rd-gk",
+        ["any", ["in", "ma70", ["var", "org"]], ["in", "berufsrettung wien", ["var", "org"]]], "rd-ma70",
+        ["in", "ims", ["var", "org"]], "rd-ims",
         "rd-pin",
     ]
 
@@ -276,7 +296,7 @@ def add_symbol_layer(style_layers: List[Dict[str, Any]], base_id: str, source_la
         "filter": geometry_filter("Point", "MultiPoint"),
         "layout": {
             "icon-image": icon_image,
-            "icon-size": ["interpolate", ["linear"], ["zoom"], 6, 0.5, 12, 0.9],
+            "icon-size": ["interpolate", ["linear"], ["zoom"], 6, 0.35, 12, 0.65],
             "icon-allow-overlap": True,
             "text-field": ["coalesce", ["get", "alt_name"], ["get", "short_name"], ["get", "name"], ""],
             "text-size": 11,
