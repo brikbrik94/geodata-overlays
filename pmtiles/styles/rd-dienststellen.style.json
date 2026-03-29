@@ -46,44 +46,121 @@
       ],
       "layout": {
         "icon-image": [
-          "case",
+          "let",
+          "org",
           [
-            "==",
+            "downcase",
             [
-              "get",
-              "emergency"
-            ],
-            "mountain_rescue"
-          ],
-          "brd-pin",
-          [
-            "any",
-            [
-              "==",
+              "concat",
               [
-                "get",
-                "ambulance_station:emergency_doctor"
-              ],
-              true
-            ],
-            [
-              "in",
-              [
-                "downcase",
+                "coalesce",
                 [
                   "to-string",
                   [
                     "get",
-                    "ambulance_station:emergency_doctor"
+                    "operator"
                   ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "brand"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "short_name"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "name"
+                  ]
+                ],
+                ""
+              ]
+            ]
+          ],
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "emergency"
+              ],
+              "mountain_rescue"
+            ],
+            "brd-pin",
+            [
+              "any",
+              [
+                "==",
+                [
+                  "get",
+                  "ambulance_station:emergency_doctor"
+                ],
+                true
+              ],
+              [
+                "in",
+                [
+                  "downcase",
+                  [
+                    "to-string",
+                    [
+                      "get",
+                      "ambulance_station:emergency_doctor"
+                    ]
+                  ]
+                ],
+                [
+                  "literal",
+                  [
+                    "yes",
+                    "true",
+                    "1"
+                  ]
+                ]
+              ]
+            ],
+            "nef-pin",
+            [
+              "any",
+              [
+                "in",
+                "bayerisches rotes kreuz",
+                [
+                  "var",
+                  "org"
                 ]
               ],
               [
-                "literal",
+                "in",
+                " brk",
                 [
-                  "yes",
-                  "true",
-                  "1"
+                  "var",
+                  "org"
                 ]
               ]
             ]
@@ -146,8 +223,33 @@
           [
             "linear"
           ],
+          "rd-brk",
           [
-            "zoom"
+            "any",
+            [
+              "in",
+              "österreichisches rotes kreuz",
+              [
+                "var",
+                "org"
+              ]
+            ],
+            [
+              "in",
+              " oerk",
+              [
+                "var",
+                "org"
+              ]
+            ],
+            [
+              "in",
+              " örk",
+              [
+                "var",
+                "org"
+              ]
+            ]
           ],
           6,
           0.35,
@@ -171,45 +273,58 @@
       ],
       "layout": {
         "icon-image": [
-          "case",
+          "let",
+          "org",
           [
-            "==",
+            "downcase",
             [
-              "get",
-              "emergency"
-            ],
-            "mountain_rescue"
-          ],
-          "brd-pin",
-          [
-            "any",
-            [
-              "==",
+              "concat",
               [
-                "get",
-                "ambulance_station:emergency_doctor"
-              ],
-              true
-            ],
-            [
-              "in",
-              [
-                "downcase",
+                "coalesce",
                 [
                   "to-string",
                   [
                     "get",
-                    "ambulance_station:emergency_doctor"
+                    "operator"
                   ]
-                ]
+                ],
+                ""
               ],
+              " ",
               [
-                "literal",
+                "coalesce",
                 [
-                  "yes",
-                  "true",
-                  "1"
-                ]
+                  "to-string",
+                  [
+                    "get",
+                    "brand"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "short_name"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "name"
+                  ]
+                ],
+                ""
               ]
             ]
           ],
@@ -296,44 +411,121 @@
       ],
       "layout": {
         "icon-image": [
-          "case",
+          "let",
+          "org",
           [
-            "==",
+            "downcase",
             [
-              "get",
-              "emergency"
-            ],
-            "mountain_rescue"
-          ],
-          "brd-pin",
-          [
-            "any",
-            [
-              "==",
+              "concat",
               [
-                "get",
-                "ambulance_station:emergency_doctor"
-              ],
-              true
-            ],
-            [
-              "in",
-              [
-                "downcase",
+                "coalesce",
                 [
                   "to-string",
                   [
                     "get",
-                    "ambulance_station:emergency_doctor"
+                    "operator"
                   ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "brand"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "short_name"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "name"
+                  ]
+                ],
+                ""
+              ]
+            ]
+          ],
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "emergency"
+              ],
+              "mountain_rescue"
+            ],
+            "brd-pin",
+            [
+              "any",
+              [
+                "==",
+                [
+                  "get",
+                  "ambulance_station:emergency_doctor"
+                ],
+                true
+              ],
+              [
+                "in",
+                [
+                  "downcase",
+                  [
+                    "to-string",
+                    [
+                      "get",
+                      "ambulance_station:emergency_doctor"
+                    ]
+                  ]
+                ],
+                [
+                  "literal",
+                  [
+                    "yes",
+                    "true",
+                    "1"
+                  ]
+                ]
+              ]
+            ],
+            "nef-pin",
+            [
+              "any",
+              [
+                "in",
+                "bayerisches rotes kreuz",
+                [
+                  "var",
+                  "org"
                 ]
               ],
               [
-                "literal",
+                "in",
+                " brk",
                 [
-                  "yes",
-                  "true",
-                  "1"
+                  "var",
+                  "org"
                 ]
               ]
             ]
@@ -408,10 +600,10 @@
       }
     },
     {
-      "id": "rd-dienststellen-rd_oo_nef-symbols",
+      "id": "rd-dienststellen-rd_sbg-symbols",
       "type": "symbol",
       "source": "folder",
-      "source-layer": "rd_oo_nef",
+      "source-layer": "rd_sbg",
       "filter": [
         "==",
         [
@@ -421,44 +613,266 @@
       ],
       "layout": {
         "icon-image": [
-          "case",
+          "let",
+          "org",
           [
-            "==",
+            "downcase",
             [
-              "get",
-              "emergency"
-            ],
-            "mountain_rescue"
-          ],
-          "brd-pin",
-          [
-            "any",
-            [
-              "==",
+              "concat",
               [
-                "get",
-                "ambulance_station:emergency_doctor"
-              ],
-              true
-            ],
-            [
-              "in",
-              [
-                "downcase",
+                "coalesce",
                 [
                   "to-string",
                   [
                     "get",
-                    "ambulance_station:emergency_doctor"
+                    "operator"
                   ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "brand"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "short_name"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "name"
+                  ]
+                ],
+                ""
+              ]
+            ]
+          ],
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "emergency"
+              ],
+              "mountain_rescue"
+            ],
+            "brd-pin",
+            [
+              "any",
+              [
+                "==",
+                [
+                  "get",
+                  "ambulance_station:emergency_doctor"
+                ],
+                true
+              ],
+              [
+                "in",
+                [
+                  "downcase",
+                  [
+                    "to-string",
+                    [
+                      "get",
+                      "ambulance_station:emergency_doctor"
+                    ]
+                  ]
+                ],
+                [
+                  "literal",
+                  [
+                    "yes",
+                    "true",
+                    "1"
+                  ]
+                ]
+              ]
+            ],
+            "nef-pin",
+            [
+              "any",
+              [
+                "in",
+                "bayerisches rotes kreuz",
+                [
+                  "var",
+                  "org"
                 ]
               ],
               [
-                "literal",
+                "in",
+                " brk",
                 [
-                  "yes",
-                  "true",
-                  "1"
+                  "var",
+                  "org"
+                ]
+              ]
+            ],
+            "rd-brk",
+            [
+              "any",
+              [
+                "in",
+                "österreichisches rotes kreuz",
+                [
+                  "var",
+                  "org"
+                ]
+              ],
+              [
+                "in",
+                " oerk",
+                [
+                  "var",
+                  "org"
+                ]
+              ],
+              [
+                "in",
+                " örk",
+                [
+                  "var",
+                  "org"
+                ]
+              ]
+            ],
+            "rd-oerk",
+            [
+              "any",
+              [
+                "in",
+                "samariter",
+                [
+                  "var",
+                  "org"
+                ]
+              ],
+              [
+                "in",
+                " asb",
+                [
+                  "var",
+                  "org"
+                ]
+              ]
+            ],
+            "rd-asb",
+            [
+              "any",
+              [
+                "in",
+                "malteser",
+                [
+                  "var",
+                  "org"
+                ]
+              ],
+              [
+                "in",
+                " mhd",
+                [
+                  "var",
+                  "org"
+                ]
+              ]
+            ],
+            "rd-mhd",
+            [
+              "any",
+              [
+                "in",
+                "johanniter",
+                [
+                  "var",
+                  "org"
+                ]
+              ],
+              [
+                "in",
+                " juh",
+                [
+                  "var",
+                  "org"
+                ]
+              ]
+            ],
+            "rd-juh",
+            [
+              "in",
+              "stadler",
+              [
+                "var",
+                "org"
+              ]
+            ],
+            "rd-stadler",
+            [
+              "any",
+              [
+                "in",
+                "grünes kreuz",
+                [
+                  "var",
+                  "org"
+                ]
+              ],
+              [
+                "in",
+                "gruenes kreuz",
+                [
+                  "var",
+                  "org"
+                ]
+              ],
+              [
+                "in",
+                " gk",
+                [
+                  "var",
+                  "org"
+                ]
+              ]
+            ],
+            "rd-gk",
+            [
+              "any",
+              [
+                "in",
+                "ma70",
+                [
+                  "var",
+                  "org"
+                ]
+              ],
+              [
+                "in",
+                "berufsrettung wien",
+                [
+                  "var",
+                  "org"
                 ]
               ]
             ]
@@ -521,8 +935,33 @@
           [
             "linear"
           ],
+          "rd-brk",
           [
-            "zoom"
+            "any",
+            [
+              "in",
+              "österreichisches rotes kreuz",
+              [
+                "var",
+                "org"
+              ]
+            ],
+            [
+              "in",
+              " oerk",
+              [
+                "var",
+                "org"
+              ]
+            ],
+            [
+              "in",
+              " örk",
+              [
+                "var",
+                "org"
+              ]
+            ]
           ],
           6,
           0.35,
@@ -533,10 +972,10 @@
       }
     },
     {
-      "id": "rd-dienststellen-rd_oo_sew-symbols",
+      "id": "rd-dienststellen-rd_stmk-symbols",
       "type": "symbol",
       "source": "folder",
-      "source-layer": "rd_oo_sew",
+      "source-layer": "rd_stmk",
       "filter": [
         "==",
         [
@@ -546,44 +985,121 @@
       ],
       "layout": {
         "icon-image": [
-          "case",
+          "let",
+          "org",
           [
-            "==",
+            "downcase",
             [
-              "get",
-              "emergency"
-            ],
-            "mountain_rescue"
-          ],
-          "brd-pin",
-          [
-            "any",
-            [
-              "==",
+              "concat",
               [
-                "get",
-                "ambulance_station:emergency_doctor"
-              ],
-              true
-            ],
-            [
-              "in",
-              [
-                "downcase",
+                "coalesce",
                 [
                   "to-string",
                   [
                     "get",
-                    "ambulance_station:emergency_doctor"
+                    "operator"
                   ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "brand"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "short_name"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "name"
+                  ]
+                ],
+                ""
+              ]
+            ]
+          ],
+          [
+            "case",
+            [
+              "==",
+              [
+                "get",
+                "emergency"
+              ],
+              "mountain_rescue"
+            ],
+            "brd-pin",
+            [
+              "any",
+              [
+                "==",
+                [
+                  "get",
+                  "ambulance_station:emergency_doctor"
+                ],
+                true
+              ],
+              [
+                "in",
+                [
+                  "downcase",
+                  [
+                    "to-string",
+                    [
+                      "get",
+                      "ambulance_station:emergency_doctor"
+                    ]
+                  ]
+                ],
+                [
+                  "literal",
+                  [
+                    "yes",
+                    "true",
+                    "1"
+                  ]
+                ]
+              ]
+            ],
+            "nef-pin",
+            [
+              "any",
+              [
+                "in",
+                "bayerisches rotes kreuz",
+                [
+                  "var",
+                  "org"
                 ]
               ],
               [
-                "literal",
+                "in",
+                " brk",
                 [
-                  "yes",
-                  "true",
-                  "1"
+                  "var",
+                  "org"
                 ]
               ]
             ]
@@ -675,40 +1191,78 @@
           [
             "==",
             [
-              "get",
-              "emergency"
-            ],
-            "mountain_rescue"
-          ],
-          "brd-pin",
-          [
-            "any",
-            [
-              "==",
+              "any",
               [
-                "get",
-                "ambulance_station:emergency_doctor"
-              ],
-              true
-            ],
-            [
-              "in",
-              [
-                "downcase",
+                "in",
+                "malteser",
                 [
-                  "to-string",
-                  [
-                    "get",
-                    "ambulance_station:emergency_doctor"
-                  ]
+                  "var",
+                  "org"
                 ]
               ],
               [
-                "literal",
+                "in",
+                " mhd",
                 [
-                  "yes",
-                  "true",
-                  "1"
+                  "var",
+                  "org"
+                ]
+              ]
+            ],
+            "rd-mhd",
+            [
+              "any",
+              [
+                "in",
+                "johanniter",
+                [
+                  "var",
+                  "org"
+                ]
+              ],
+              [
+                "in",
+                " juh",
+                [
+                  "var",
+                  "org"
+                ]
+              ]
+            ],
+            "rd-juh",
+            [
+              "in",
+              "stadler",
+              [
+                "var",
+                "org"
+              ]
+            ],
+            "rd-stadler",
+            [
+              "any",
+              [
+                "in",
+                "grünes kreuz",
+                [
+                  "var",
+                  "org"
+                ]
+              ],
+              [
+                "in",
+                "gruenes kreuz",
+                [
+                  "var",
+                  "org"
+                ]
+              ],
+              [
+                "in",
+                " gk",
+                [
+                  "var",
+                  "org"
                 ]
               ]
             ]
@@ -796,44 +1350,122 @@
       ],
       "layout": {
         "icon-image": [
-          "case",
+          "let",
+          "org",
           [
-            "==",
+            "downcase",
             [
-              "get",
-              "emergency"
-            ],
-            "mountain_rescue"
-          ],
-          "brd-pin",
-          [
-            "any",
-            [
-              "==",
+              "concat",
               [
-                "get",
-                "ambulance_station:emergency_doctor"
-              ],
-              true
-            ],
-            [
-              "in",
-              [
-                "downcase",
+                "coalesce",
                 [
                   "to-string",
                   [
                     "get",
-                    "ambulance_station:emergency_doctor"
+                    "operator"
                   ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "brand"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "short_name"
+                  ]
+                ],
+                ""
+              ],
+              " ",
+              [
+                "coalesce",
+                [
+                  "to-string",
+                  [
+                    "get",
+                    "name"
+                  ]
+                ],
+                ""
+              ]
+            ]
+          ],
+          [
+            "case",
+            [
+              "in",
+              "ma70",
+              [
+                "get",
+                "emergency"
+              ],
+              "mountain_rescue"
+            ],
+            "brd-pin",
+            [
+              "any",
+              [
+                "==",
+                [
+                  "get",
+                  "ambulance_station:emergency_doctor"
+                ],
+                true
+              ],
+              [
+                "in",
+                [
+                  "downcase",
+                  [
+                    "to-string",
+                    [
+                      "get",
+                      "ambulance_station:emergency_doctor"
+                    ]
+                  ]
+                ],
+                [
+                  "literal",
+                  [
+                    "yes",
+                    "true",
+                    "1"
+                  ]
+                ]
+              ]
+            ],
+            "nef-pin",
+            [
+              "any",
+              [
+                "in",
+                "bayerisches rotes kreuz",
+                [
+                  "var",
+                  "org"
                 ]
               ],
               [
-                "literal",
+                "in",
+                " brk",
                 [
-                  "yes",
-                  "true",
-                  "1"
+                  "var",
+                  "org"
                 ]
               ]
             ]
