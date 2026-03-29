@@ -162,6 +162,37 @@ function composeMapStyle(overlayStyle) {
   return mergedStyle;
 }
 
+async function debugOverlayFeatures(style, styleFile) {
+  if (!DEBUG_SPRITES || !style?.sources?.folder) {
+    return null;
+  }
+
+  await new Promise((resolve) => {
+    if (map.isStyleLoaded()) {
+      resolve();
+      return;
+    }
+    map.once('idle', resolve);
+  });
+
+  const sourceLayers = [...new Set((style.layers || [])
+    .filter((layer) => layer.source === 'folder' && layer['source-layer'])
+    .map((layer) => layer['source-layer']))];
+
+  const counts = {};
+  for (const layerName of sourceLayers) {
+    try {
+      const features = map.querySourceFeatures('folder', { sourceLayer: layerName });
+      counts[layerName] = features.length;
+    } catch (error) {
+      counts[layerName] = `error: ${String(error)}`;
+    }
+  }
+
+  console.info('[sprite-debug] source feature counts', { styleFile, counts });
+  return counts;
+}
+
 async function applyOverlay(styleFile) {
   if (!styleFile) {
     map.setStyle({
@@ -177,6 +208,7 @@ async function applyOverlay(styleFile) {
   const style = await fetchOverlayStyle(styleFile);
   const spriteDebug = await debugSpriteAvailability(style, styleFile);
   map.setStyle(composeMapStyle(style), { diff: false });
+  const sourceFeatureCounts = await debugOverlayFeatures(style, styleFile);
   const activeOverlay = style.metadata?.localTestServer || { styleFile };
   setStatus(
     `Overlay geladen: ${style.metadata?.folder || styleFile}`,
@@ -188,6 +220,7 @@ async function applyOverlay(styleFile) {
         pmtilesFile: activeOverlay.pmtilesFile || null,
         sprite: style.sprite || null,
         spriteDebug,
+        sourceFeatureCounts,
       },
       null,
       2,

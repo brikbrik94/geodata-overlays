@@ -177,8 +177,12 @@ def collect_bundle_spec(root: Path, bundle_dir: Path) -> BundleSpec:
 
 def build_tippecanoe_command(out_pmtiles: Path, specs: Sequence[LayerSpec], extra_args: Sequence[str]) -> List[str]:
     cmd = ["tippecanoe", "-o", str(out_pmtiles)]
-    if "-z" not in extra_args and "-zg" not in extra_args:
-        cmd.append("-zg")
+    has_zoom_config = any(
+        arg in {"-zg", "-z", "-Z", "--maximum-zoom", "--minimum-zoom"}
+        for arg in extra_args
+    )
+    if not has_zoom_config:
+        cmd.extend(["-Z", "0", "-z", str(DEFAULT_MAXZOOM)])
     if "--drop-densest-as-needed" not in extra_args and "--drop-fraction-as-needed" not in extra_args:
         cmd.append("--drop-densest-as-needed")
     cmd.extend(extra_args)
