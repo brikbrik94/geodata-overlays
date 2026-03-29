@@ -76,6 +76,21 @@ def parse_style_vars(style_text: str) -> Dict[str, str]:
     return result
 
 
+def resolve_css_vars_in_tree(root: ET.Element, style_vars: Dict[str, str]) -> None:
+    if not style_vars:
+        return
+    replacements = {f"var({name})": value for name, value in style_vars.items() if value}
+    if not replacements:
+        return
+
+    for node in root.iter():
+        for key, value in list(node.attrib.items()):
+            replaced = value
+            for pattern, actual in replacements.items():
+                replaced = replaced.replace(pattern, actual)
+            node.set(key, replaced)
+
+
 def get_text_content(node: ET.Element) -> str:
     return "".join(node.itertext()).strip()
 
@@ -102,7 +117,7 @@ def href_of_use(group: ET.Element) -> str:
     return href
 
 
-def build_icon_svg(root: ET.Element, defs: ET.Element | None, group: ET.Element) -> ET.ElementTree:
+def build_icon_svg(root: ET.Element, defs: ET.Element | None, group: ET.Element, style_vars: Dict[str, str]) -> ET.ElementTree:
     out_root = ET.Element(qname("svg"), {
         "width": "64",
         "height": "72",
@@ -121,6 +136,7 @@ def build_icon_svg(root: ET.Element, defs: ET.Element | None, group: ET.Element)
         icon_group.append(copy.deepcopy(use))
 
     out_root.append(icon_group)
+    resolve_css_vars_in_tree(out_root, style_vars)
     return ET.ElementTree(out_root)
 
 
@@ -151,11 +167,11 @@ def extract_icons(
         rel_file = Path(group) / f"{icon_name}.svg"
         output_svg = out_dir / rel_file
         output_svg.parent.mkdir(parents=True, exist_ok=True)
+        styles = parse_style_vars(child.get("style", ""))
 
-        icon_tree = build_icon_svg(root, defs, child)
+        icon_tree = build_icon_svg(root, defs, child, styles)
         icon_tree.write(output_svg, encoding="utf-8", xml_declaration=True)
 
-        styles = parse_style_vars(child.get("style", ""))
         metadata.append({
             "group": group,
             "name": icon_name,
