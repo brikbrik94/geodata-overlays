@@ -66,6 +66,22 @@ extract_or_copy_svg() {
   fi
 }
 
+copy_marker_png() {
+  local source_dir="$1"
+  local preferred="$2"
+  local out_name="$3"
+  local candidate=""
+  if [[ -n "$preferred" && -f "$source_dir/$preferred" ]]; then
+    candidate="$source_dir/$preferred"
+  else
+    candidate="$(find "$source_dir" -maxdepth 1 -type f -name '*.png' | sort | head -n1 || true)"
+  fi
+  if [[ -n "$candidate" ]]; then
+    cp "$candidate" "$PNG_DIR/markers/$out_name"
+    echo "marker alias: $(basename "$candidate") -> markers/$out_name"
+  fi
+}
+
 if [[ -n "$INPUT_SVG" ]]; then
   group="$(basename "$INPUT_SVG")"
   group="${group%-pin-sprite.svg}"
@@ -90,6 +106,14 @@ else
 fi
 
 "$VENV_PY" "$ROOT_DIR/scripts/convert_sprite_svgs.py" --source "$EXTRACT_DIR" --out "$PNG_DIR"
+
+mkdir -p "$PNG_DIR/markers"
+copy_marker_png "$PNG_DIR/rd" "oerk.png" "rd-pin.png"
+copy_marker_png "$PNG_DIR/nef" "oerk.png" "nef-pin.png"
+copy_marker_png "$PNG_DIR/nah" "adac-luftrettung.png" "nah-pin.png"
+copy_marker_png "$PNG_DIR/brd" "brd.png" "brd-pin.png"
+copy_marker_png "$PNG_DIR/fallback" "fallback.png" "fallback-pin.png"
+
 "$VENV_PY" "$ROOT_DIR/scripts/build_sprites.py" --source "$PNG_DIR" --out "$DIST_DIR"
 
 echo "Done. Sprites written to: $DIST_DIR"
