@@ -43,24 +43,23 @@ extract_or_copy_svg() {
   local input_svg="$1"
   local group="$2"
   local target_svg="$EXTRACT_DIR/$group/${group}.svg"
-  local count_file="$WORK_DIR/.extract_count_${group}.txt"
-  local before_count=0
-  local after_count=0
-
-  before_count="$(find "$EXTRACT_DIR" -type f -name '*.svg' | wc -l | tr -d ' ')"
+  local extract_log="$WORK_DIR/.extract_log_${group}.txt"
+  local extracted_count=0
   EXTRACT_CMD=("$VENV_PY" "$ROOT_DIR/scripts/extract_sprite_icons.py" --input "$input_svg" --out "$EXTRACT_DIR" --default-group "$group")
-  if [[ "$group" == "rd" || "$group" == "nef" ]]; then
+  if [[ "$group" == "rd" ]]; then
     EXTRACT_CMD+=(--provider-names)
   fi
   if [[ -n "$PROVIDER_MAP" ]]; then
     EXTRACT_CMD+=(--provider-map "$PROVIDER_MAP")
   fi
-  "${EXTRACT_CMD[@]}" >"$count_file"
-  cat "$count_file"
-  rm -f "$count_file"
-  after_count="$(find "$EXTRACT_DIR" -type f -name '*.svg' | wc -l | tr -d ' ')"
+  "${EXTRACT_CMD[@]}" >"$extract_log"
+  cat "$extract_log"
+  if grep -Eq '^extracted [0-9]+ icons to ' "$extract_log"; then
+    extracted_count="$(sed -nE 's/^extracted ([0-9]+) icons to .*/\1/p' "$extract_log" | tail -n1)"
+  fi
+  rm -f "$extract_log"
 
-  if [[ "$after_count" -eq "$before_count" ]]; then
+  if [[ "$extracted_count" -eq 0 ]]; then
     mkdir -p "$(dirname "$target_svg")"
     cp "$input_svg" "$target_svg"
     echo "no extractable symbols found in $(basename "$input_svg"), copied as $target_svg"
