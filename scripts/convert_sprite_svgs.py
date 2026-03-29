@@ -9,6 +9,7 @@ Default behavior:
 from __future__ import annotations
 
 import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -47,6 +48,23 @@ def convert_one(svg_path: Path, source_root: Path, out_root: Path, scale: float)
     return out_path
 
 
+
+
+def maybe_convert_manifest(source_root: Path, out_root: Path) -> None:
+    src_manifest = source_root / "icons.manifest.json"
+    if not src_manifest.exists():
+        return
+    payload = json.loads(src_manifest.read_text(encoding="utf-8"))
+    icons = payload.get("icons", [])
+    for icon in icons:
+        file_path = str(icon.get("file", ""))
+        if file_path.lower().endswith(".svg"):
+            icon["file"] = file_path[:-4] + ".png"
+    out_manifest = out_root / "icons.manifest.json"
+    out_manifest.parent.mkdir(parents=True, exist_ok=True)
+    out_manifest.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description='Convert SVG sprite assets to PNG files.')
     parser.add_argument('--source', default='assets/sprites', help='Source directory containing SVG files.')
@@ -74,6 +92,7 @@ def main() -> int:
             'If system Cairo libs are missing, install them on your build host.'
         ) from exc
 
+    maybe_convert_manifest(source, out)
     print(f'converted {len(converted)} SVG files into {out}')
     return 0
 
