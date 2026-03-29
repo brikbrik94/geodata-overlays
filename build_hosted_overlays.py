@@ -20,6 +20,7 @@ import json
 import re
 import shutil
 import subprocess
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence
@@ -204,26 +205,66 @@ def expr_truthy(prop: str) -> List[Any]:
 
 
 def build_rd_icon_expression() -> List[Any]:
-    brand_short = ["downcase", ["to-string", ["get", "brand:short"]]]
-    return [
-        "case",
-        ["==", ["get", "emergency"], "mountain_rescue"], "brd-pin",
-        expr_truthy("ambulance_station:emergency_doctor"), "nef-pin",
-        [
-            "match",
-            brand_short,
-            ["brk"], "rd-brk",
-            ["örk", "oerk"], "rd-oerk",
-            ["asb"], "rd-asb",
-            ["mhd"], "rd-mhd",
-            ["juh"], "rd-juh",
-            ["gk"], "rd-gk",
-            ["ma70"], "rd-ma70",
-            ["ims"], "rd-ims",
-            ["stadler"], "rd-stadler",
-            "rd-pin",
-        ],
-    ]
+    return ["coalesce", ["get", "pin"], "fallback-pin"]
+
+
+def truthy_value(value: Any) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return value != 0
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "y", "ja"}
+    return False
+
+
+def derive_rd_pin(properties: Dict[str, Any]) -> str:
+    emergency = str(properties.get("emergency", "")).strip().lower()
+    if emergency == "mountain_rescue":
+        return "brd-pin"
+
+    if emergency != "ambulance_station":
+        return "fallback-pin"
+
+    has_nef = truthy_value(properties.get("ambulance_station:emergency_doctor"))
+    has_rd = truthy_value(properties.get("ambulance_station:patient_transport"))
+    if has_nef:
+        pin_prefix = "nef"
+    elif has_rd:
+        pin_prefix = "rd"
+    else:
+        return "fallback-pin"
+
+    brand_short = str(properties.get("brand:short", "")).strip().lower()
+    suffix_by_brand_short = {
+        "brk": "brk",
+        "örk": "oerk",
+        "oerk": "oerk",
+        "asb": "asb",
+        "mhd": "mhd",
+        "juh": "juh",
+        "gk": "gk",
+        "ma70": "ma70",
+        "ims": "ims",
+        "stadler": "stadler",
+    }
+    suffix = suffix_by_brand_short.get(brand_short)
+    if not suffix:
+        return "fallback-pin"
+    return f"{pin_prefix}-{suffix}"
+
+
+def build_rd_enriched_geojson(src: Path, dst: Path) -> None:
+    payload = json.loads(src.read_text(encoding="utf-8"))
+    for feature in payload.get("features", []):
+        if not isinstance(feature, dict):
+            continue
+        props = feature.setdefault("properties", {})
+        if not isinstance(props, dict):
+            props = {}
+            feature["properties"] = props
+        props["pin"] = derive_rd_pin(props)
+    dst.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
 
 
 def add_background_layer(style_layers: List[Dict[str, Any]]) -> None:
@@ -726,6 +767,22 @@ def write_json(path: Path, payload: Any) -> None:
 def build_pmtiles(bundle: BundleSpec, out_dir: Path, extra_args: Sequence[str], dry_run: bool) -> None:
     out_pmtiles = out_dir / bundle.pmtiles_relpath
     out_pmtiles.parent.mkdir(parents=True, exist_ok=True)
+    if bundle.slug == "rd-dienststellen":
+        with tempfile.TemporaryDirectory(prefix="rd-pin-preprocess-") as temp_dir:
+            temp_root = Path(temp_dir)
+            enriched_specs: List[LayerSpec] = []
+            for spec in bundle.layers:
+                enriched_file = temp_root / f"{spec.layer}.geojson"
+                build_rd_enriched_geojson(spec.file, enriched_file)
+                enriched_specs.append(LayerSpec(layer=spec.layer, file=enriched_file, geom_type=spec.geom_type))
+            cmd = build_tippecanoe_command(out_pmtiles, enriched_specs, extra_args)
+            print(f"\n=== {bundle.title} ===")
+            print(f"PMTiles: {out_pmtiles}")
+            print(">>", " ".join(cmd))
+            if not dry_run:
+                subprocess.run(cmd, check=True)
+        return
+
     cmd = build_tippecanoe_command(out_pmtiles, bundle.layers, extra_args)
     print(f"\n=== {bundle.title} ===")
     print(f"PMTiles: {out_pmtiles}")
