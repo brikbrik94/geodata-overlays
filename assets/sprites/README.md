@@ -21,6 +21,8 @@ Dieser Ordner ist die zentrale Quelle für die spätere Bereitstellung über
 SVG-Konvertierung (SVG -> PNG):
 ```bash
 python3 scripts/convert_sprite_svgs.py --source assets/sprites --out assets/sprites/png
+# oder ohne Aktivierung direkt über die venv:
+.venv/bin/python scripts/convert_sprite_svgs.py --source assets/sprites --out assets/sprites/png
 ```
 
 Danach Sprite-Build ausführen:

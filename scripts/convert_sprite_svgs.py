@@ -9,11 +9,27 @@ Default behavior:
 from __future__ import annotations
 
 import argparse
+import subprocess
+import sys
 from pathlib import Path
 
 
 def discover_svgs(source: Path) -> list[Path]:
     return sorted(path for path in source.rglob('*.svg') if path.is_file())
+
+
+
+
+def maybe_rerun_in_local_venv() -> int | None:
+    repo_root = Path(__file__).resolve().parent.parent
+    venv_python = repo_root / ".venv" / "bin" / "python"
+    current_python = Path(sys.executable).resolve()
+    if not venv_python.exists() or current_python == venv_python.resolve():
+        return None
+
+    cmd = [str(venv_python), str(Path(__file__).resolve()), *sys.argv[1:]]
+    print(f"cairosvg not found in current interpreter; retrying with {venv_python}")
+    return subprocess.run(cmd, check=False).returncode
 
 
 def convert_one(svg_path: Path, source_root: Path, out_root: Path, scale: float) -> Path:
@@ -49,8 +65,12 @@ def main() -> int:
     try:
         converted = [convert_one(svg, source, out, args.scale) for svg in svgs]
     except ModuleNotFoundError as exc:
+        rerun_code = maybe_rerun_in_local_venv()
+        if rerun_code is not None:
+            return rerun_code
         raise SystemExit(
-            'cairosvg is required for SVG conversion. Install with `pip install cairosvg`. '
+            'cairosvg is required for SVG conversion. Run `bash scripts/install_python_deps.sh` '
+            'and execute this script via `.venv/bin/python` or an activated venv. '
             'If system Cairo libs are missing, install them on your build host.'
         ) from exc
 
