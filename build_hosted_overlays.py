@@ -333,6 +333,7 @@ def add_symbol_layer(style_layers: List[Dict[str, Any]], base_id: str, source_la
             "icon-image": icon_image,
             "icon-size": ["interpolate", ["linear"], ["zoom"], 6, 0.35, 12, 0.65],
             "icon-allow-overlap": True,
+            "icon-ignore-placement": True,
             "text-field": ["coalesce", ["get", "alt_name"], ["get", "short_name"], ["get", "name"], ""],
             "text-size": 11,
             "text-font": DEFAULT_FONT_STACK,

@@ -66,7 +66,8 @@
           12,
           0.65
         ],
-        "icon-allow-overlap": true
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true
       }
     },
     {
@@ -103,7 +104,8 @@
           12,
           0.65
         ],
-        "icon-allow-overlap": true
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true
       }
     },
     {
@@ -140,7 +142,8 @@
           12,
           0.65
         ],
-        "icon-allow-overlap": true
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true
       }
     },
     {
@@ -177,7 +180,8 @@
           12,
           0.65
         ],
-        "icon-allow-overlap": true
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true
       }
     },
     {
@@ -214,7 +218,8 @@
           12,
           0.65
         ],
-        "icon-allow-overlap": true
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true
       }
     },
     {
@@ -251,7 +256,8 @@
           12,
           0.65
         ],
-        "icon-allow-overlap": true
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true
       }
     },
     {
@@ -288,7 +294,8 @@
           12,
           0.65
         ],
-        "icon-allow-overlap": true
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true
       }
     }
   ]
