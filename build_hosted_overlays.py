@@ -886,7 +886,18 @@ def build_pmtiles(bundle: BundleSpec, out_dir: Path, extra_args: Sequence[str], 
                 enriched_file = temp_root / f"{spec.layer}.geojson"
                 build_nah_enriched_geojson(spec.file, enriched_file)
                 enriched_specs.append(LayerSpec(layer=spec.layer, file=enriched_file, geom_type=spec.geom_type))
-            cmd = build_tippecanoe_command(out_pmtiles, enriched_specs, extra_args)
+            nah_extra_args = list(extra_args)
+            if "--no-feature-limit" not in nah_extra_args:
+                nah_extra_args.append("--no-feature-limit")
+            if "--no-tile-size-limit" not in nah_extra_args:
+                nah_extra_args.append("--no-tile-size-limit")
+            has_drop_rate = any(
+                arg == "-r" or arg.startswith("-r") or arg == "--drop-rate"
+                for arg in nah_extra_args
+            )
+            if not has_drop_rate:
+                nah_extra_args.extend(["-r", "1"])
+            cmd = build_tippecanoe_command(out_pmtiles, enriched_specs, nah_extra_args)
             print(f"\n=== {bundle.title} ===")
             print(f"PMTiles: {out_pmtiles}")
             print(">>", " ".join(cmd))
