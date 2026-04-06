@@ -31,6 +31,8 @@ BACKGROUND = "#1a1a1a"
 BORDER = "#333333"
 TEXT = "#e0e0e0"
 HALO = "#1a1a1a"
+LABEL_TEXT = "#111111"
+LABEL_BUBBLE = "#ffffff"
 DEFAULT_MAXZOOM = 15
 TEMPLATE_STYLES_DIR = Path(__file__).resolve().parent / "pmtiles" / "styles"
 REPO_ROOT = Path(__file__).resolve().parent
@@ -527,9 +529,39 @@ def add_symbol_layer(style_layers: List[Dict[str, Any]], base_id: str, source_la
             "text-optional": True,
         },
         "paint": {
-            "text-color": TEXT,
-            "text-halo-color": HALO,
-            "text-halo-width": 1,
+            "text-color": LABEL_TEXT,
+            "text-halo-color": LABEL_BUBBLE,
+            "text-halo-width": ["interpolate", ["linear"], ["zoom"], 6, 2.0, 12, 2.8],
+            "text-halo-blur": 0.6,
+        },
+    })
+
+
+def add_nah_symbol_layer(style_layers: List[Dict[str, Any]], base_id: str, source_layer: str, icon_image: Any) -> None:
+    style_layers.append({
+        "id": f"{base_id}-symbols",
+        "type": "symbol",
+        "source": DEFAULT_SOURCE_ID,
+        "source-layer": source_layer,
+        "filter": geometry_filter("Point", "MultiPoint"),
+        "layout": {
+            "icon-image": icon_image,
+            "icon-size": ["interpolate", ["linear"], ["zoom"], 6, 0.35, 12, 0.65],
+            "icon-anchor": "bottom",
+            "icon-allow-overlap": True,
+            "icon-ignore-placement": True,
+            "text-field": ["coalesce", ["get", "alt_name"], ""],
+            "text-size": 11,
+            "text-font": DEFAULT_FONT_STACK,
+            "text-offset": [0, 1.2],
+            "text-anchor": "top",
+            "text-optional": True,
+        },
+        "paint": {
+            "text-color": LABEL_TEXT,
+            "text-halo-color": LABEL_BUBBLE,
+            "text-halo-width": ["interpolate", ["linear"], ["zoom"], 6, 2.0, 12, 2.8],
+            "text-halo-blur": 0.6,
         },
     })
 
