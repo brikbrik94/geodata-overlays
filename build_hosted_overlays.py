@@ -36,7 +36,7 @@ TEMPLATE_STYLES_DIR = Path(__file__).resolve().parent / "pmtiles" / "styles"
 REPO_ROOT = Path(__file__).resolve().parent
 ZONEN_COLOR_MAPPING_PATH = REPO_ROOT / "assets" / "mappings" / "color_mapping.json"
 DEFAULT_SOURCE_ID = "folder"
-DEFAULT_FONT_STACK = ["Segoe UI Regular", "Arial Unicode MS Regular"]
+DEFAULT_FONT_STACK = ["Open-Sans-Regular"]
 SYMBOL_FOLDERS = {"rd-dienststellen", "nah-stuetzpunkte"}
 ICON_BY_FOLDER = {
     "nah-stuetzpunkte": "fallback-pin",
@@ -1109,7 +1109,7 @@ def main() -> int:
     parser.add_argument("--sprite-url", default="../assets/sprites/oe5ith-markers/sprite", help="Sprite URL for MapLibre styles.")
     parser.add_argument(
         "--glyphs-url",
-        default="https://tiles.oe5ith.at/assets/fonts/{fontstack}/{range}.pbf",
+        default="https://tiles.oe5ith.at/assets/fonts/Open-Sans-Regular/{range}.pbf",
         help="Glyphs URL for MapLibre styles.",
     )
     parser.add_argument("--skip-pmtiles", action="store_true", help="Do not run tippecanoe, only generate manifests/styles/index.")
