@@ -18,6 +18,7 @@ entstehen, damit du das Bundle direkt auf einem Server wie `tiles.oe5ith.at` aus
 Der neue Haupt-Workflow für den produktiven Export.
 
 Er scannt das GeoJSON-Root rekursiv und behandelt **jeden Ordner, der direkt `.geojson`-Dateien enthält**, als eigenes Overlay-Bundle.
+Wenn im GeoJSON-Root eine `manifest.json` liegt (z. B. im externen Daten-Repo), werden dort hinterlegte Geometrietypen beim Layer-Mapping bevorzugt verwendet.
 
 Beispiele aus diesem Repo:
 
