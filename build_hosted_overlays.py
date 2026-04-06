@@ -153,6 +153,7 @@ def load_geometry_manifest(root: Path) -> Dict[str, Tuple[str, ...]]:
             item.get("geometry_types"),
             item.get("geom_types"),
             item.get("types"),
+            item.get("feature_types"),
             item.get("geometries"),
             item.get("geometry"),
         )
