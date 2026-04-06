@@ -145,6 +145,7 @@ class OverlayRequestHandler(BaseHTTPRequestHandler):
                 if isinstance(layout, dict):
                     layout["icon-image"] = ["coalesce", ["get", "pin"], "fallback-pin"]
                     layout["icon-size"] = ["interpolate", ["linear"], ["zoom"], 6, 0.35, 12, 0.65]
+                    layout["icon-anchor"] = "bottom"
                     layout["icon-allow-overlap"] = True
                     layout["icon-ignore-placement"] = True
                     for key in ["text-field", "text-size", "text-font", "text-offset", "text-anchor", "text-optional"]:

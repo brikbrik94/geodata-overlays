@@ -226,6 +226,7 @@ def add_points(style_layers: list, src: str, base_id: str, src_layer: str,
             "layout": {
                 "icon-image": icon_expr,
                 "icon-size": 1.0,
+                "icon-anchor": "bottom",
                 "icon-allow-overlap": True
             }
         })
