@@ -45,6 +45,19 @@ ask_yes_no() {
   done
 }
 
+detect_python_bin() {
+  if command -v python3 >/dev/null 2>&1; then
+    echo "python3"
+    return 0
+  fi
+  if command -v python >/dev/null 2>&1; then
+    echo "python"
+    return 0
+  fi
+  echo "Neither python3 nor python found in PATH." >&2
+  return 1
+}
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --source)
@@ -140,7 +153,8 @@ if [[ "$REBUILD_SPRITES" =~ ^(yes|y|ja)$ ]]; then
   bash "$ROOT_DIR/scripts/run_sprite_pipeline.sh"
 fi
 
-BUILD_CMD=(python "$ROOT_DIR/build_hosted_overlays.py" --root "$DATA_ROOT" --out "$OUT_DIR")
+PYTHON_BIN="$(detect_python_bin)"
+BUILD_CMD=("$PYTHON_BIN" "$ROOT_DIR/build_hosted_overlays.py" --root "$DATA_ROOT" --out "$OUT_DIR")
 if [[ "$CLEAN_MODE" =~ ^(yes|y|ja)$ ]]; then
   BUILD_CMD+=(--clean)
 fi
@@ -148,7 +162,7 @@ if [[ "$SKIP_PMTILES" -eq 1 ]]; then
   BUILD_CMD+=(--skip-pmtiles)
 fi
 
-echo "\n🚀 Running build: ${BUILD_CMD[*]}"
+printf "\n🚀 Running build: %s\n" "${BUILD_CMD[*]}"
 "${BUILD_CMD[@]}"
 
 echo
