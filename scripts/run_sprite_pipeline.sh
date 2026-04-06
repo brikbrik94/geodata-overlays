@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VENV_PY="${ROOT_DIR}/.venv/bin/python"
 INPUT_SVG=""
 SOURCE_DIR="${ROOT_DIR}/assets/sprites"
+SDF_SOURCE_DIR="${ROOT_DIR}/assets/sprites/sdf"
 WORK_DIR="${ROOT_DIR}/assets/sprites/work"
 DIST_DIR="${ROOT_DIR}/dist/assets/sprites"
 
@@ -13,6 +14,7 @@ usage() {
 Usage: $(basename "$0") [--input <preview.svg>] [--source-dir <dir>] [--work-dir <dir>] [--dist-dir <dir>] [--provider-map <json>]
 
 Ohne --input werden automatisch alle Dateien <gruppe>-pin-sprite.svg aus --source-dir verarbeitet.
+SDF-Icons werden automatisch aus --sdf-source-dir ($SDF_SOURCE_DIR) hinzugefügt.
 USAGE
 }
 
@@ -21,6 +23,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --input) INPUT_SVG="$2"; shift 2 ;;
     --source-dir) SOURCE_DIR="$2"; shift 2 ;;
+    --sdf-source-dir) SDF_SOURCE_DIR="$2"; shift 2 ;;
     --work-dir) WORK_DIR="$2"; shift 2 ;;
     --dist-dir) DIST_DIR="$2"; shift 2 ;;
     --provider-map) PROVIDER_MAP="$2"; shift 2 ;;
@@ -83,20 +86,18 @@ copy_icon_alias() {
   fi
 }
 
+# --- Schritt 1: SVGs verarbeiten ---
 if [[ -n "$INPUT_SVG" ]]; then
   group="$(basename "$INPUT_SVG")"
   group="${group%-pin-sprite.svg}"
-  if [[ "$group" == "$(basename "$INPUT_SVG")" ]]; then
-    group="fallback"
-  fi
+  [[ "$group" == "$(basename "$INPUT_SVG")" ]] && group="fallback"
   extract_or_copy_svg "$INPUT_SVG" "$group"
 else
   shopt -s nullglob
   found=0
   for svg in "$SOURCE_DIR"/*-pin-sprite.svg; do
     found=1
-    group="$(basename "$svg")"
-    group="${group%-pin-sprite.svg}"
+    group="$(basename "$svg")"; group="${group%-pin-sprite.svg}"
     extract_or_copy_svg "$svg" "$group"
   done
   shopt -u nullglob
@@ -106,18 +107,19 @@ else
   fi
 fi
 
+# --- Schritt 2: SVGs nach PNG konvertieren ---
 "$VENV_PY" "$ROOT_DIR/scripts/convert_sprite_svgs.py" --source "$EXTRACT_DIR" --out "$PNG_DIR"
 
+# --- Schritt 3: Kombinierten Ordner oe5ith-markers erstellen ---
 COMBINED_DIR="$PNG_DIR/oe5ith-markers"
 mkdir -p "$COMBINED_DIR"
 
+# Alle extrahierten PNGs einsammeln
 for group in rd nef nah brd fallback; do
   if [[ -d "$PNG_DIR/$group" ]]; then
     find "$PNG_DIR/$group" -maxdepth 1 -type f -name '*.png' | while read -r icon; do
       base="$(basename "$icon" .png)"
       if [[ ( "$group" == "brd" || "$group" == "fallback" ) && "$base" == "$group" ]]; then
-        # In diesen Gruppen ist `<group>-pin` der einzige benötigte Key.
-        # Das zusätzliche `<group>-<group>` wäre rein redundant.
         continue
       fi
       cp "$icon" "$COMBINED_DIR/${group}-${base}.png"
@@ -125,9 +127,18 @@ for group in rd nef nah brd fallback; do
   fi
 done
 
+# --- Schritt 4: SDF Assets hinzufügen (NEU) ---
+if [[ -d "$SDF_SOURCE_DIR" ]]; then
+    echo "Sammle SDF Assets aus $SDF_SOURCE_DIR..."
+    # Kopiert alle .png (z.B. label-bubble-sdf.png) in den Haupt-Sprite-Ordner
+    cp "$SDF_SOURCE_DIR"/*.png "$COMBINED_DIR/" 2>/dev/null || true
+fi
+
+# --- Schritt 5: Aliase erstellen ---
 copy_icon_alias "$PNG_DIR/brd" "brd.png" "brd-pin.png" "$COMBINED_DIR"
 copy_icon_alias "$PNG_DIR/fallback" "fallback.png" "fallback-pin.png" "$COMBINED_DIR"
 
+# --- Schritt 6: Sprite-Sheets generieren ---
 "$VENV_PY" "$ROOT_DIR/scripts/build_sprites.py" --source "$PNG_DIR" --out "$DIST_DIR"
 
 echo "Done. Sprites written to: $DIST_DIR"
