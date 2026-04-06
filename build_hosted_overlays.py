@@ -534,6 +534,23 @@ def add_symbol_layer(style_layers: List[Dict[str, Any]], base_id: str, source_la
     })
 
 
+def add_nah_symbol_layer(style_layers: List[Dict[str, Any]], base_id: str, source_layer: str, icon_image: Any) -> None:
+    style_layers.append({
+        "id": f"{base_id}-symbols",
+        "type": "symbol",
+        "source": DEFAULT_SOURCE_ID,
+        "source-layer": source_layer,
+        "filter": geometry_filter("Point", "MultiPoint"),
+        "layout": {
+            "icon-image": icon_image,
+            "icon-size": ["interpolate", ["linear"], ["zoom"], 6, 0.35, 12, 0.65],
+            "icon-anchor": "bottom",
+            "icon-allow-overlap": True,
+            "icon-ignore-placement": True,
+        },
+    })
+
+
 def should_use_symbol_points(bundle: BundleSpec) -> bool:
     return bundle.slug in SYMBOL_FOLDERS
 
@@ -587,7 +604,7 @@ def build_nah_style(bundle: BundleSpec, base_url: str, sprite_url: Optional[str]
         # oder inkonsistenten Geometrietyp-Hinweisen Layer komplett fehlen.
         add_fill_layer(layers, base_id, spec.layer)
         add_line_layer(layers, base_id, spec.layer)
-        add_symbol_layer(layers, base_id, spec.layer, point_icon)
+        add_nah_symbol_layer(layers, base_id, spec.layer, point_icon)
     return style
 
 
