@@ -1030,8 +1030,6 @@ def build_pmtiles(bundle: BundleSpec, out_dir: Path, extra_args: Sequence[str], 
                 nah_extra_args.append("--no-line-simplification")
             if "--no-tiny-polygon-reduction" not in nah_extra_args:
                 nah_extra_args.append("--no-tiny-polygon-reduction")
-            if "--no-tiny-polygon-simplification" not in nah_extra_args:
-                nah_extra_args.append("--no-tiny-polygon-simplification")
             has_drop_rate = any(
                 arg == "-r" or arg.startswith("-r") or arg == "--drop-rate"
                 for arg in nah_extra_args
