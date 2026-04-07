@@ -179,7 +179,17 @@
         ],
         "text-allow-overlap": true,
         "text-ignore-placement": true,
-        "icon-image": "label-bubble-sdf",
+        "icon-image": [
+          "coalesce",
+          [
+            "image",
+            "label-bubble-sdf"
+          ],
+          [
+            "image",
+            "oe5ith-markers/label-bubble-sdf"
+          ]
+        ],
         "icon-anchor": "top",
         "icon-text-fit": "both",
         "icon-text-fit-padding": [
@@ -288,7 +298,17 @@
         ],
         "text-allow-overlap": true,
         "text-ignore-placement": true,
-        "icon-image": "label-bubble-sdf",
+        "icon-image": [
+          "coalesce",
+          [
+            "image",
+            "label-bubble-sdf"
+          ],
+          [
+            "image",
+            "oe5ith-markers/label-bubble-sdf"
+          ]
+        ],
         "icon-anchor": "top",
         "icon-text-fit": "both",
         "icon-text-fit-padding": [
@@ -397,7 +417,17 @@
         ],
         "text-allow-overlap": true,
         "text-ignore-placement": true,
-        "icon-image": "label-bubble-sdf",
+        "icon-image": [
+          "coalesce",
+          [
+            "image",
+            "label-bubble-sdf"
+          ],
+          [
+            "image",
+            "oe5ith-markers/label-bubble-sdf"
+          ]
+        ],
         "icon-anchor": "top",
         "icon-text-fit": "both",
         "icon-text-fit-padding": [
