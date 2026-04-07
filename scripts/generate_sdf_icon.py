@@ -17,7 +17,7 @@ def main():
     parser.add_argument("--out", default="assets/sprites/sdf/label-bubble-sdf.png")
     parser.add_argument("--width", type=int, default=256)
     parser.add_argument("--height", type=int, default=128)
-    parser.add_argument("--radius", type=float, default=60.0)
+    parser.add_argument("--radius", type=float, default=16.0)
     parser.add_argument("--spread", type=float, default=18.0)
     args = parser.parse_args()
     out_path = Path(args.out).expanduser().resolve()

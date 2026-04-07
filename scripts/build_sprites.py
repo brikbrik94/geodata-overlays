@@ -45,22 +45,12 @@ def build_sprite_group(group: str, icons: Sequence[IconSpec], out_dir: Path, sca
             "pixelRatio": scale, "sdf": icon.sdf
         }
         if icon.name == "label-bubble-sdf":
-            corner = max(2, min(int(round(img.height * 0.48)), img.width // 3, (img.height // 2) - 1))
-            stretch_x_start = corner
-            stretch_x_end = max(stretch_x_start + 1, img.width - corner)
-            mid_y = img.height // 2
-            stretch_y_start = max(1, mid_y - 2)
-            stretch_y_end = min(img.height - 1, mid_y + 2)
-            content_pad_x = max(8, corner // 2)
-            content_pad_y = max(6, img.height // 4)
+            stretch_x_start = max(1, int(round(img.width * 0.25)))
+            stretch_x_end = min(img.width - 1, max(stretch_x_start + 1, int(round(img.width * 0.75))))
+            stretch_y_start = max(1, int(round(img.height * 0.40)))
+            stretch_y_end = min(img.height - 1, max(stretch_y_start + 1, int(round(img.height * 0.60))))
             entry["stretchX"] = [[stretch_x_start, stretch_x_end]]
             entry["stretchY"] = [[stretch_y_start, stretch_y_end]]
-            entry["content"] = [
-                content_pad_x,
-                content_pad_y,
-                max(content_pad_x + 1, img.width - content_pad_x),
-                max(content_pad_y + 1, img.height - content_pad_y),
-            ]
         manifest[icon.name] = entry
         x += img.width + padding
 
