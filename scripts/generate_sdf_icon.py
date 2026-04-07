@@ -17,7 +17,7 @@ def main():
     parser.add_argument("--out", default="assets/sprites/sdf/label-bubble-sdf.png")
     parser.add_argument("--width", type=int, default=256)
     parser.add_argument("--height", type=int, default=128)
-    parser.add_argument("--radius", type=float, default=32.0)
+    parser.add_argument("--radius", type=float, default=60.0)
     parser.add_argument("--spread", type=float, default=18.0)
     args = parser.parse_args()
     out_path = Path(args.out).expanduser().resolve()
@@ -25,10 +25,11 @@ def main():
     rows = []
     cx, cy = (args.width - 1) / 2.0, (args.height - 1) / 2.0
     hx, hy = args.width / 2.0 - 1.0, args.height / 2.0 - 1.0
+    radius = min(args.radius, hx, hy)
     for y in range(args.height):
         row = bytearray()
         for x in range(args.width):
-            sd = sd_rounded_box(x - cx, y - cy, hx, hy, args.radius)
+            sd = sd_rounded_box(x - cx, y - cy, hx, hy, radius)
             alpha = int(round(max(0.0, min(1.0, 0.5 - (sd / args.spread))) * 255.0))
             row.extend((255, 255, 255, alpha))
         rows.append(bytes(row))
