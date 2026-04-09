@@ -52,9 +52,13 @@ python3 "$ROOT_DIR/scripts/style_builders/build_strassen.py" --root "$EXTERNAL_D
 python3 "$ROOT_DIR/scripts/style_builders/build_strassen.py" --root "$EXTERNAL_DATA_DIR" --out "$OUT_DIR" --base-url "$BASE_URL" \
   --folder "Straßen/Bundesstraßen" --line-color "#ffcc00" --bubble-icon "label-bubble-yellow" --text-color "#000000"
 
-# Index generieren
-echo "📇 Generating index.json..."
-python3 "$ROOT_DIR/scripts/generate_index.py" --out "$OUT_DIR" --base-url "$BASE_URL"
+# Fonts kopieren (NEU für Plugin-Standard)
+if [[ -d "$ROOT_DIR/assets/fonts" ]]; then
+  echo "🔤 Copying fonts to dist/assets/fonts..."
+  mkdir -p "$OUT_DIR/assets/fonts"
+  cp -r "$ROOT_DIR/assets/fonts"/* "$OUT_DIR/assets/fonts/" 2>/dev/null || true
+  rm -f "$OUT_DIR/assets/fonts/README.md"
+fi
 
 # Manifest generieren
 echo "📜 Generating manifest.json for external scripts..."

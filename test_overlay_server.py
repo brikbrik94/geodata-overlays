@@ -67,31 +67,50 @@ class OverlayRequestHandler(BaseHTTPRequestHandler):
     def bundle_dir(self) -> Path:
         return self.server.bundle_dir  # type: ignore[attr-defined]
 
-    def read_index(self) -> List[Dict[str, Any]]:
-        index_path = self.bundle_dir / "styles" / "index.json"
-        if not index_path.exists():
-            return []
-        data = json.loads(index_path.read_text(encoding="utf-8"))
-        if not isinstance(data, list):
-            raise ValueError("styles/index.json muss eine Liste sein")
+    def read_manifest(self) -> Dict[str, Any]:
+        manifest_path = self.bundle_dir / "manifest.json"
+        if not manifest_path.exists():
+            # Fallback to index.json if manifest.json is missing (backward compatibility)
+            index_path = self.bundle_dir / "styles" / "index.json"
+            if index_path.exists():
+                data = json.loads(index_path.read_text(encoding="utf-8"))
+                # Convert index.json format to manifest.json datasets
+                datasets = []
+                for entry in data:
+                    datasets.append({
+                        "id": entry.get("styleFile", "").replace("styles/", "").replace(".style.json", ""),
+                        "name": entry.get("folder", ""),
+                        "style_path": entry.get("styleFile"),
+                        "pmtiles_path": entry.get("pmtilesFile"),
+                        "source_layer_count": entry.get("sourceLayerCount", 0)
+                    })
+                return {"datasets": datasets}
+            return {"datasets": []}
+        
+        data = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if not isinstance(data, dict):
+            raise ValueError("manifest.json muss ein Objekt sein")
         return data
 
     def serve_overlays(self) -> None:
         try:
-            entries = self.read_index()
+            manifest = self.read_manifest()
         except Exception as exc:
             return self.send_json({"error": str(exc)}, status=HTTPStatus.INTERNAL_SERVER_ERROR)
 
         overlays = []
-        for entry in entries:
-            style_file = str(entry.get("styleFile", ""))
+        # Support both 'datasets' (new) and 'overlays' (old/compat)
+        datasets = manifest.get("datasets", manifest.get("overlays", []))
+        
+        for entry in datasets:
+            style_file = str(entry.get("style_path", entry.get("styleFile", "")))
             overlays.append({
-                "id": style_file,
-                "label": entry.get("folder", style_file),
+                "id": entry.get("id", style_file),
+                "label": entry.get("name", entry.get("folder", style_file)),
                 "styleFile": style_file,
                 "styleApiUrl": f"/api/style?style={style_file}",
-                "pmtilesFile": entry.get("pmtilesFile"),
-                "sourceLayerCount": entry.get("sourceLayerCount", 0),
+                "pmtilesFile": entry.get("pmtiles_path", entry.get("pmtilesFile")),
+                "sourceLayerCount": entry.get("source_layer_count", entry.get("sourceLayerCount", 0)),
             })
 
         self.send_json({
@@ -120,44 +139,18 @@ class OverlayRequestHandler(BaseHTTPRequestHandler):
 
         self.send_json(style)
 
-    def sanitize_rd_style(self, style: Dict[str, Any], style_file: str) -> Dict[str, Any]:
-        if not style_file.endswith("rd-dienststellen.style.json"):
-            return style
-
-        layers = style.get("layers")
-        if not isinstance(layers, list):
-            return style
-
-        seen_ids = set()
-        normalized_layers = []
-        for layer in layers:
-            if not isinstance(layer, dict):
-                continue
-            layer_id = str(layer.get("id", ""))
-            if layer_id and layer_id in seen_ids:
-                continue
-            if layer_id:
-                seen_ids.add(layer_id)
-
-            if layer.get("type") == "symbol" and layer.get("source") == "folder":
-                layout = layer.setdefault("layout", {})
-                if isinstance(layout, dict):
-                    layout["icon-image"] = ["coalesce", ["get", "pin"], "fallback-pin"]
-                    layout["icon-size"] = ["interpolate", ["linear"], ["zoom"], 6, 0.35, 12, 0.65]
-                    layout["icon-anchor"] = "bottom"
-                    layout["icon-allow-overlap"] = True
-                    layout["icon-ignore-placement"] = True
-                    for key in ["text-field", "text-size", "text-font", "text-offset", "text-anchor", "text-optional"]:
-                        layout.pop(key, None)
-            normalized_layers.append(layer)
-
-        style["layers"] = normalized_layers
-        return style
-
     def rewrite_style_for_local_bundle(self, style: Dict[str, Any], style_file: str) -> Dict[str, Any]:
-        entries = self.read_index()
-        entry = next((item for item in entries if item.get("styleFile") == style_file), None)
-        pmtiles_file = None if entry is None else entry.get("pmtilesFile")
+        manifest = self.read_manifest()
+        datasets = manifest.get("datasets", manifest.get("overlays", []))
+        
+        # Suche den passenden Eintrag im Manifest
+        entry = None
+        for item in datasets:
+            if item.get("style_path") == style_file or item.get("styleFile") == style_file:
+                entry = item
+                break
+        
+        pmtiles_file = None if entry is None else entry.get("pmtiles_path", entry.get("pmtilesFile"))
         forwarded_proto = self.headers.get("X-Forwarded-Proto", "http")
         host = self.headers.get("Host", f"{self.server.server_address[0]}:{self.server.server_address[1]}")
 

@@ -1,52 +1,67 @@
-# Manifest-Standard für Karten-Overlays
+# Externer Plugin-Standard (manifest.json)
 
-Dieses Dokument beschreibt die Struktur der `manifest.json`, die als standardisierte Schnittstelle zwischen der Build-Pipeline und externen Verarbeitungs-Skripten dient.
+Dieses Dokument beschreibt den Standard für externe Repositories ("Plugins"), die automatisch in die Geodata-Pipeline eingebunden werden können.
 
-## Zielsetzung
-Das Manifest ermöglicht es automatisierten Systemen (z.B. Deployment-Skripten, API-Gateways), alle Bestandteile eines Karten-Builds (PMTiles, Styles, Sprites) ohne manuelle Konfiguration zu identifizieren.
+## 1. Verzeichnisstruktur
+Ein externes Repository muss seine fertigen Artefakte in einem Verzeichnis namens `dist/` ablegen.
 
-## Pfad
-Die Datei befindet sich nach einem erfolgreichen Build unter:
-`dist/manifest.json`
+```text
+mein-overlay-repo/
+├── dist/
+│   ├── manifest.json         # Pflicht: Beschreibt den Inhalt
+│   ├── pmtiles/              # PMTiles Dateien
+│   ├── styles/               # Stylesheets (style.json)
+│   └── assets/               # Sprites und Fonts
+└── build.sh                  # Skript zum Bauen/Aktualisieren der Daten
+```
 
-## Struktur
+## 2. Die Datei manifest.json
+Das Manifest im Root von `dist/` steuert den Deployment-Prozess.
 
+### Struktur (v1.0)
 ```json
 {
-  "project": "Name des Projekts",
-  "generated_at": "ISO-Timestamp (optional)",
-  "overlays": [
+  "version": "1.0",
+  "project": "Mein Spezial-Overlay",
+  "tileset": "overlays",
+  "generated_at": "2026-04-09T08:00:00Z",
+  "datasets": [
     {
-      "id": "eindeutiger-layer-id",
-      "name": "Anzeigename des Layers",
-      "style_path": "relativer/pfad/zu/style.json",
-      "pmtiles_path": "relativer/pfad/zu/data.pmtiles"
+      "id": "meine-karte",
+      "name": "Meine Spezialkarte",
+      "style_path": "styles/style.json",
+      "pmtiles_path": "pmtiles/data.pmtiles"
     }
   ],
   "resources": {
     "sprites": [
       {
-        "id": "sprite-name",
-        "svg_path": "pfad/zu/quell/svg"
+        "id": "mein-sprite",
+        "path": "assets/sprites/mein-sprite"
       }
     ],
     "fonts": [
-      "Name-der-Schriftart"
+      {
+        "id": "MeineSchrift",
+        "path": "assets/fonts/MeineSchrift"
+      }
     ]
   }
 }
 ```
 
 ### Felder im Detail
+- **`version`**: Aktuelle Version des Standards (hier: "1.0").
+- **`tileset`**: Bestimmt die Kategorie im Zielsystem.
+  - `osm`, `basemap-at` -> Grundkarten
+  - `overlays` -> Overlays (Standard)
+- **`datasets`**: Ein Array von Karten-Definitionen.
+  - `id`: Eindeutiger Bezeichner (wird Teil der URL).
+  - `style_path`: Relativer Pfad zur `style.json` innerhalb von `dist/`.
+  - `pmtiles_path`: Relativer Pfad zur `.pmtiles` Datei innerhalb von `dist/`.
+- **`resources`**: Optionale zusätzliche Assets.
+  - `sprites`: Kopiert den `path` nach `/srv/assets/sprites/<id>/`.
+  - `fonts`: Kopiert den `path` nach `/srv/assets/fonts/<id>/`.
 
-*   **`overlays`**: Eine Liste aller verfügbaren Karten-Layer.
-    *   `style_path`: Pfad zur Mapbox GL Style JSON (relativ zum Projekt-Root).
-    *   `pmtiles_path`: Pfad zur Datendatei (relativ zum Projekt-Root).
-*   **`resources`**: Gemeinsame Ressourcen, die von mehreren Styles genutzt werden können.
-    *   `sprites`: Listet alle Quell-Vektorgrafiken auf, aus denen das Sprite-Sheet generiert wird.
-    *   `fonts`: Listet die benötigten Schriftfamilien auf (wichtig für die Font-Server-Bereitstellung).
-
-## Implementierung in neuen Projekten
-1.  Füge `scripts/generate_manifest.py` zum Projekt hinzu.
-2.  Stelle sicher, dass das Script am Ende des Build-Prozesses aufgerufen wird.
-3.  Pfade im Manifest sollten immer **relativ zum Repository-Root** angegeben werden, um Portabilität zu gewährleisten.
+## 3. Build & Update Hook
+Wenn im Root des Repositories ein ausführbares Skript namens `build.sh` oder `update.sh` liegt, wird dieses von der Haupt-Pipeline aufgerufen, bevor das Deployment startet. Dies erlaubt es dem Plugin, seine Daten selbstständig aktuell zu halten.

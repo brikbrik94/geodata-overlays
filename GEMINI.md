@@ -9,7 +9,7 @@ Wir migrieren den monolithischen Build-Prozess von `build_hosted_overlays.py` hi
 - **PMTiles-Builder:** `scripts/pmtiles_builder.py` übernimmt die Konvertierung von GeoJSON zu PMTiles (inkl. Pin-Logik für RD/NAH und Tippecanoe-Steuerung mit `-r 1` zum Schutz aller Features).
 - **Style-Orchestrierung:** `scripts/run_style_build.sh` führt die einzelnen Kategorien-Builder aus.
 - **Style-Utils:** `scripts/style_builders/style_utils.py` enthält globale Konstanten (z.B. Font `Noto-Sans-Regular`).
-- **Index-Generator:** `scripts/generate_index.py` erstellt die `index.json` für den Viewer.
+- **Manifest-Generator:** `scripts/generate_manifest.py` erstellt die `manifest.json` für Deployment und Viewer (ersetzt `index.json`).
 
 ### Umgestellte Layer (Modular)
 1.  **NAH-Stützpunkte (`build_nah.py`):**
@@ -52,6 +52,6 @@ Wir migrieren den monolithischen Build-Prozess von `build_hosted_overlays.py` hi
 # PMTiles bauen (aus external/geojson-data)
 bash scripts/run_pmtiles_build.sh
 
-# Styles und Index bauen
+# Styles und Manifest bauen
 bash scripts/run_style_build.sh
 ```
