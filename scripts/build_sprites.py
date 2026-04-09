@@ -13,14 +13,23 @@ class IconSpec:
 
 def discover_groups(source: Path) -> Dict[str, List[IconSpec]]:
     groups: Dict[str, List[IconSpec]] = {}
-    for png in sorted(source.rglob("*.png")):
-        # Wir wollen alle Ordner einbeziehen, auch oe5ith-markers
-        rel = png.relative_to(source)
-        if len(rel.parts) < 2: continue
-        group = rel.parts[0]
-        icon_name = png.stem
-        sdf = icon_name.endswith("-sdf")
-        groups.setdefault(group, []).append(IconSpec(name=icon_name, path=png, sdf=sdf))
+    
+    # Zuerst nach Unterordnern suchen
+    for p in source.iterdir():
+        if p.is_dir():
+            group = p.name
+            for png in sorted(p.glob("*.png")):
+                icon_name = png.stem
+                sdf = icon_name.endswith("-sdf")
+                groups.setdefault(group, []).append(IconSpec(name=icon_name, path=png, sdf=sdf))
+    
+    # Falls keine Unterordner gefunden wurden, Dateien im Root als 'sprite' Gruppe nehmen
+    if not groups:
+        for png in sorted(source.glob("*.png")):
+            icon_name = png.stem
+            sdf = icon_name.endswith("-sdf")
+            groups.setdefault("sprite", []).append(IconSpec(name=icon_name, path=png, sdf=sdf))
+            
     return groups
 
 def build_sprite_group(group: str, icons: Sequence[IconSpec], out_dir: Path, scale: int) -> None:

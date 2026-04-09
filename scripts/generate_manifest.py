@@ -2,6 +2,7 @@
 import json
 import os
 from pathlib import Path
+from datetime import datetime
 
 def main():
     # Basisverzeichnisse relativ zum Projekt-Root
@@ -9,22 +10,21 @@ def main():
     dist_dir = project_root / "dist"
     pmtiles_dir = project_root / "pmtiles"
     styles_dir = pmtiles_dir / "styles"
-    assets_dir = project_root / "assets"
-    sprites_dir = assets_dir / "sprites"
-
+    
+    # Manifest-Struktur initialisieren
     manifest = {
         "project": "Modulare Overlay-Pipeline",
-        "generated_at": None,  # Hier könnte man ein Datum einfügen
+        "generated_at": datetime.now().isoformat(),
         "overlays": [],
         "resources": {
-            "sprites": [],
-            "fonts": ["Noto-Sans-Regular"]
+            "sprites": []
         }
     }
 
     # 1. Scanne Styles und zugehörige PMTiles
     if styles_dir.exists():
         for style_file in sorted(styles_dir.glob("*.style.json")):
+            # Pfad relativ zu dist/ für externe Nutzung
             style_rel = os.path.relpath(style_file, project_root)
             
             # Versuche, das PMTiles aus dem Style zu extrahieren
@@ -51,14 +51,16 @@ def main():
                 "pmtiles_path": pmtiles_rel if pmtiles_rel else f"pmtiles/{style_file.stem.replace('.style', '')}.pmtiles"
             })
 
-    # 2. Scanne Sprites
-    # Wir suchen nach SVG-Dateien in assets/sprites, die als Quellen dienen
-    if sprites_dir.exists():
-        for sprite_file in sorted(sprites_dir.glob("*.svg")):
-            manifest["resources"]["sprites"].append({
-                "id": sprite_file.stem,
-                "svg_path": os.path.relpath(sprite_file, project_root)
-            })
+    # 2. Scanne Sprites im dist/ Ordner
+    dist_sprites_dir = dist_dir / "assets" / "sprites"
+    if dist_sprites_dir.exists():
+        for sprite_group in sorted(dist_sprites_dir.iterdir()):
+            if sprite_group.is_dir():
+                # Wir listen nur den Basisnamen des Sprites auf
+                manifest["resources"]["sprites"].append({
+                    "id": sprite_group.name,
+                    "sprite_url": f"assets/sprites/{sprite_group.name}/sprite"
+                })
 
     # 3. Verzeichnis dist/ sicherstellen und Manifest schreiben
     dist_dir.mkdir(exist_ok=True)
@@ -69,7 +71,7 @@ def main():
 
     print(f"✅ Manifest erstellt unter: {manifest_path}")
     print(f"   - {len(manifest['overlays'])} Overlays gefunden")
-    print(f"   - {len(manifest['resources']['sprites'])} Sprites gefunden")
+    print(f"   - {len(manifest['resources']['sprites'])} Sprite-Sheets gefunden")
 
 if __name__ == "__main__":
     main()

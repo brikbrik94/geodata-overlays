@@ -138,7 +138,14 @@ fi
 copy_icon_alias "$PNG_DIR/brd" "brd.png" "brd-pin.png" "$COMBINED_DIR"
 copy_icon_alias "$PNG_DIR/fallback" "fallback.png" "fallback-pin.png" "$COMBINED_DIR"
 
-# --- Schritt 6: Sprite-Sheets generieren ---
-"$VENV_PY" "$ROOT_DIR/scripts/build_sprites.py" --source "$PNG_DIR" --out "$DIST_DIR"
+# --- Schritt 6: Sprite-Sheets generieren (nur das kombinierte) ---
+echo "🏗️ Generating combined sprite sheet 'oe5ith-markers'..."
+# Wir erstellen ein temporäres Verzeichnis für den Build, damit nur oe5ith-markers im Dist landet
+BUILD_TMP="$WORK_DIR/build_tmp"
+rm -rf "$BUILD_TMP"
+mkdir -p "$BUILD_TMP/oe5ith-markers"
+cp -r "$COMBINED_DIR"/* "$BUILD_TMP/oe5ith-markers/"
 
-echo "Done. Sprites written to: $DIST_DIR"
+"$VENV_PY" "$ROOT_DIR/scripts/build_sprites.py" --source "$BUILD_TMP" --out "$DIST_DIR"
+
+echo "✅ Sprites complete. Output in: $DIST_DIR/oe5ith-markers"
