@@ -15,7 +15,6 @@ def main():
     manifest = {
         "version": "1.0",
         "project": "OE5ITH Overlay Pipeline",
-        "tileset": "overlays",
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "datasets": [],
         "resources": {
@@ -112,6 +111,8 @@ def main():
 
             dataset = {
                 "id": style_file.stem.replace(".style", ""),
+                "type": "overlay",
+                "source": "osm",
                 "name": folder_name,
                 "style_path": style_rel,
                 "pmtiles_path": pmtiles_rel,

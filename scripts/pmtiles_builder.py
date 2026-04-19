@@ -1,8 +1,32 @@
 #!/usr/bin/env python3
 import json, os, re, subprocess, tempfile, argparse
 from pathlib import Path
+from config_parser import load_repo_config, sanitize_name
 
-# --- Pin Derivation Logic (from build_hosted_overlays.py) ---
+# --- Constants & Shared Logic ---
+
+COLOR_PALETTE = {
+    "1": "#2563eb", # Blau
+    "2": "#16a34a", # Grün
+    "3": "#f59e0b", # Gelb/Orange
+    "4": "#dc2626", # Rot
+    "5": "#7c3aed", # Violett
+    "6": "#0891b2"  # Cyan
+}
+
+def load_global_color_mapping():
+    project_root = Path(__file__).parent.parent
+    path = project_root / "assets" / "mappings" / "color_mapping.json"
+    if path.exists():
+        try:
+            return json.loads(path.read_text(encoding="utf-8"))
+        except:
+            pass
+    return {}
+
+GLOBAL_COLOR_MAP = load_global_color_mapping()
+
+# --- Pin Derivation Logic ---
 
 def truthy_value(value):
     if isinstance(value, bool): return value
@@ -39,25 +63,56 @@ def derive_nah_pin(properties):
         if any(n in text for n in needles): return pin
     return "fallback-pin"
 
+def derive_zone_color(properties, local_map, layer_name):
+    # Der Key steht laut Nutzer IMMER im Feld 'name'
+    name_val = str(properties.get("name", ""))
+    
+    # 1. Lokales Mapping (farbzuordnung.json)
+    if name_val in local_map:
+        idx = str(local_map[name_val])
+        return COLOR_PALETTE.get(idx, "#3b82f6")
+        
+    # 2. Globales Mapping (color_mapping.json)
+    if name_val in GLOBAL_COLOR_MAP:
+        return GLOBAL_COLOR_MAP[name_val]
+        
+    # Fallback basierend auf Layer-Name (Dateiname)
+    if "nef" in layer_name.lower():
+        return "#2563eb" # Blau
+    if "sew" in layer_name.lower() or "rd" in layer_name.lower():
+        return "#dc2626" # Rot
+        
+    return "#3b82f6" # Default Blau
+
 # --- Build Logic ---
 
-def process_geojson(src, dst, folder_slug):
+def process_geojson(src, dst, template):
     data = json.loads(src.read_text(encoding="utf-8"))
+    
+    # Für Zonen: Lokale Farbzuordnung laden
+    local_map = {}
+    if template == "zonen":
+        farbz_path = src.parent / "farbzuordnung.json"
+        if farbz_path.exists():
+            try:
+                local_map = json.loads(farbz_path.read_text(encoding="utf-8"))
+            except:
+                pass
+
     for f in data.get("features", []):
         props = f.setdefault("properties", {})
-        if folder_slug == "rd-dienststellen": props["pin"] = derive_rd_pin(props)
-        elif folder_slug == "nah-stuetzpunkte": props["pin"] = derive_nah_pin(props)
+        if template == "rd": props["pin"] = derive_rd_pin(props)
+        elif template == "nah": props["pin"] = derive_nah_pin(props)
+        elif template == "zonen": props["color"] = derive_zone_color(props, local_map, src.stem)
+        
     dst.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
 
-def run_tippecanoe(out_file, layer_specs, folder_slug):
+def run_tippecanoe(out_file, layer_specs, template):
     # -Z 0 -z 15: Zoomstufen 0 bis 15
-    # --force: Bestehende Dateien überschreiben
-    # --no-feature-limit & --no-tile-size-limit: Verhindert das Verwerfen von Features bei Größenüberschreitung
-    # -r 1: Verhindert das automatische Ausdünnen (Dropping) von Punkten bei niedrigen Zoomstufen
     cmd = ["tippecanoe", "-o", str(out_file), "-Z", "0", "-z", "15", "--force", "--no-feature-limit", "--no-tile-size-limit", "-r", "1"]
     
     # Spezifische Optimierungen für NAH
-    if folder_slug == "nah-stuetzpunkte":
+    if template == "nah":
         cmd.extend(["--no-line-simplification", "--no-tiny-polygon-reduction"])
     
     for layer_name, file_path in layer_specs:
@@ -65,17 +120,6 @@ def run_tippecanoe(out_file, layer_specs, folder_slug):
     
     print(f"Running: {' '.join(cmd)}")
     subprocess.run(cmd, check=True)
-
-def sanitize_name(name):
-    """Sanitizes a name for use as a layer or slug."""
-    name = name.lower()
-    name = (name.replace("ä", "ae")
-                .replace("ö", "oe")
-                .replace("ü", "ue")
-                .replace("ß", "ss"))
-    name = name.replace(" ", "_").replace("-", "_")
-    name = re.sub(r"[^a-z0-9_]", "_", name)
-    return re.sub(r"_+", "_", name).strip("_")
 
 def main():
     parser = argparse.ArgumentParser()
@@ -86,23 +130,46 @@ def main():
     root = Path(args.root).resolve()
     out_base = Path(args.out).resolve() / "pmtiles"
     
-    for bundle_dir in [d for d in root.rglob("*") if d.is_dir() and list(d.glob("*.geojson"))]:
-        rel_path = bundle_dir.relative_to(root)
+    config = load_repo_config(root)
+    generated_files = set()
+    
+    for dataset in config.get("datasets", []):
+        rel_path = Path(dataset["path"])
+        full_path = root / rel_path
+        template = dataset["template"]
+        
+        if not full_path.exists():
+            print(f"⚠️ Warning: Path {full_path} not found.")
+            continue
+            
+        geojsons = list(full_path.glob("*.geojson"))
+        if not geojsons:
+            continue
+            
         # Sanitized filename for PMTiles (Flat slug)
         slug = "-".join(sanitize_name(p).replace("_", "-") for p in rel_path.parts)
         out_file = out_base / f"{slug}.pmtiles"
         out_file.parent.mkdir(parents=True, exist_ok=True)
         
-        print(f"\n📦 Building bundle: {rel_path} -> {slug}.pmtiles")
+        print(f"\n📦 Building bundle: {rel_path} ({template}) -> {slug}.pmtiles")
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
             specs = []
-            for g in sorted(bundle_dir.glob("*.geojson")):
+            for g in sorted(geojsons):
                 clean_name = sanitize_name(g.stem)
                 target = tmp_path / g.name
-                process_geojson(g, target, slug)
+                process_geojson(g, target, template)
                 specs.append((clean_name, target))
             
-            run_tippecanoe(out_file, specs, slug)
+            run_tippecanoe(out_file, specs, template)
+            generated_files.add(out_file.resolve())
+
+    # --- Cleanup obsolete PMTiles ---
+    if out_base.exists():
+        print("\n🧹 Cleaning up obsolete PMTiles...")
+        for existing_file in out_base.glob("*.pmtiles"):
+            if existing_file.resolve() not in generated_files:
+                print(f"🗑️ Deleting obsolete file: {existing_file.name}")
+                existing_file.unlink()
 
 if __name__ == "__main__": main()

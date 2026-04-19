@@ -1,98 +1,83 @@
 #!/usr/bin/env python3
 import argparse, os, json, re
 from pathlib import Path
-from style_utils import create_base_style, build_pmtiles_source_url, write_style, geometry_filter, DEFAULT_SOURCE_ID, DEFAULT_FONT_STACK
+from style_builders.style_utils import create_base_style, build_pmtiles_source_url, write_style, geometry_filter, DEFAULT_FONT_STACK
+from config_parser import sanitize_name
 
-def sanitize_name(name):
-    """Sanitizes a name for use as a layer or slug."""
-    name = name.lower()
-    name = (name.replace("ä", "ae")
-                .replace("ö", "oe")
-                .replace("ü", "ue")
-                .replace("ß", "ss"))
-    name = name.replace(" ", "_").replace("-", "_")
-    name = re.sub(r"[^a-z0-9_]", "_", name)
-    return re.sub(r"_+", "_", name).strip("_")
-
-def add_bezirke_layers(style, source_layer):
-    base_id = f"bezirke-{source_layer}"
+def add_gebiete_layer(style, source_layer, source_id):
+    base_id = f"{source_id}-{source_layer}"
     
-    # 1. Fill Layer
+    # Umriss Layer
     style["layers"].append({
-        "id": f"{base_id}-fill",
-        "type": "fill",
-        "source": DEFAULT_SOURCE_ID,
+        "id": f"{base_id}-outline",
+        "type": "line",
+        "source": source_id,
         "source-layer": source_layer,
         "filter": geometry_filter("Polygon", "MultiPolygon"),
         "paint": {
-            "fill-color": "#3b82f6",
-            "fill-opacity": 0.05,
-            "fill-outline-color": "transparent"
+            "line-color": "#3b82f6",
+            "line-width": ["interpolate", ["linear"], ["zoom"], 6, 1, 12, 2.5],
+            "line-opacity": 0.8
         }
     })
     
-    # 2. Line Layer (Outline)
-    style["layers"].append({
-        "id": f"{base_id}-line",
-        "type": "line",
-        "source": DEFAULT_SOURCE_ID,
-        "source-layer": source_layer,
-        "filter": geometry_filter("LineString", "MultiLineString", "Polygon", "MultiPolygon"),
-        "paint": {
-            "line-color": "#3b82f6",
-            "line-width": ["interpolate", ["linear"], ["zoom"], 6, 1.0, 12, 2.5],
-            "line-opacity": 0.6,
-            "line-dasharray": [2, 2]
-        }
-    })
-    # 3. Label Layer (Centroid labels, matching layer color)
+    # Label Layer (Zentroid-basiert)
     style["layers"].append({
         "id": f"{base_id}-labels",
         "type": "symbol",
-        "source": DEFAULT_SOURCE_ID,
+        "source": source_id,
         "source-layer": source_layer,
         "filter": geometry_filter("Polygon", "MultiPolygon"),
         "layout": {
             "text-field": ["get", "name"],
-            "text-size": ["interpolate", ["linear"], ["zoom"], 8, 11, 12, 15],
             "text-font": ["Open-Sans-Bold"],
+            "text-size": ["interpolate", ["linear"], ["zoom"], 6, 11, 12, 16],
+            "text-anchor": "center",
             "text-allow-overlap": False,
-            "text-padding": 10,
-            "symbol-placement": "point"
+            "text-padding": 5
         },
         "paint": {
-            "text-color": "#3b82f6"
+            "text-color": "#ffffff",
+            "text-halo-color": "#000000",
+            "text-halo-width": 2
         }
     })
 
-def main():
+def build_style(dataset_config, args):
+    rel_path = Path(dataset_config["path"])
+    full_path = Path(args.root) / rel_path
+    
+    slug = "-".join(sanitize_name(p).replace("_", "-") for p in rel_path.parts)
+    safe_rel_path = Path(*(sanitize_name(p).replace("_", "-") for p in rel_path.parts))
+    pmtiles_rel = f"pmtiles/{slug}.pmtiles"
+    pmtiles_url = build_pmtiles_source_url(args.base_url, pmtiles_rel)
+    
+    style = create_base_style(f"OE5ITH {dataset_config['name']}", pmtiles_url, args.sprite_url, args.glyphs_url, slug)
+    style["metadata"]["folder"] = dataset_config["name"]
+    
+    geojsons = list(full_path.glob("*.geojson"))
+    for g in sorted(geojsons):
+        layer_name = g.stem
+        source_layer = sanitize_name(layer_name)
+        add_gebiete_layer(style, source_layer, slug)
+        
+    write_style(Path(args.out) / "styles" / f"{slug}.style.json", style)
+    return slug
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", required=True)
     parser.add_argument("--root", required=True)
     parser.add_argument("--base-url", default="")
     parser.add_argument("--sprite-url", default="../assets/sprites/oe5ith-markers/sprite")
     parser.add_argument("--glyphs-url", default="https://tiles.oe5ith.at/assets/fonts/{fontstack}/{range}.pbf")
+    parser.add_argument("--path", required=True)
+    parser.add_argument("--name", required=True)
     args = parser.parse_args()
     
-    folder_rel = "Bezirke"
-    slug = "-".join(sanitize_name(p).replace("_", "-") for p in Path(folder_rel).parts)
-    pmtiles_rel = f"pmtiles/{slug}.pmtiles"
-    pmtiles_url = build_pmtiles_source_url(args.base_url, pmtiles_rel)
-    
-    style = create_base_style(f"OE5ITH {folder_rel}", pmtiles_url, args.sprite_url, args.glyphs_url)
-    style["metadata"]["folder"] = folder_rel
-    
-    # Scannen (Hier ist es meist nur Bezirke.geojson)
-    base_dir = Path(args.root) / folder_rel
-    if not base_dir.exists():
-        print(f"⚠️ Directory {base_dir} not found.")
-        return
-
-    for g in sorted(base_dir.glob("*.geojson")):
-        source_layer = sanitize_name(g.stem)
-        add_bezirke_layers(style, source_layer)
-        
-    write_style(Path(args.out) / "styles" / f"{slug}.style.json", style)
-    print(f"✅ Style created: {slug} (Modular with Centroid Labels)")
-
-if __name__ == "__main__": main()
+    dataset_config = {
+        "path": args.path,
+        "name": args.name,
+        "template": "gebiete"
+    }
+    build_style(dataset_config, args)

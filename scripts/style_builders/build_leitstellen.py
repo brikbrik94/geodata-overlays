@@ -1,117 +1,110 @@
 #!/usr/bin/env python3
-import argparse, os, json, re
+import argparse, os, json, re, copy
 from pathlib import Path
-from style_utils import create_base_style, build_pmtiles_source_url, write_style, geometry_filter, DEFAULT_SOURCE_ID, DEFAULT_FONT_STACK
+from style_builders.style_utils import create_base_style, build_pmtiles_source_url, write_style, geometry_filter, DEFAULT_FONT_STACK
+from config_parser import sanitize_name
 
-LEITSTELLEN_COLOR_PALETTE = ["#2563eb", "#16a34a", "#f59e0b", "#dc2626", "#7c3aed", "#0891b2"]
-
-def sanitize_name(name):
-    """Sanitizes a name for use as a layer or slug."""
-    name = name.lower()
-    name = (name.replace("ä", "ae")
-                .replace("ö", "oe")
-                .replace("ü", "ue")
-                .replace("ß", "ss"))
-    name = name.replace(" ", "_").replace("-", "_")
-    name = re.sub(r"[^a-z0-9_]", "_", name)
-    return re.sub(r"_+", "_", name).strip("_")
-
-def pick_palette_color(palette, index, total):
-    if total <= 1:
-        return palette[0]
-    if total <= len(palette):
-        # Evenly spread colors from the palette
-        palette_index = int(round(index * (len(palette) - 1) / (total - 1)))
-        return palette[palette_index]
-    return palette[index % len(palette)]
-
-def add_leitstellen_layers(style, source_layer, color):
-    base_id = f"leitstelle-{source_layer}"
+def add_leitstellen_layer(style, source_layer, source_id):
+    base_id = f"{source_id}-{source_layer}"
+    
+    # Categorical Color Ramp für Leitstellen
+    # Da die Layer-Properties oft "Bezirk XYZ" enthalten, nutzen wir ein Mapping
+    # das auf dem sanitized source_layer basiert (der meist HRV, INN, RLZ etc. heißt)
+    
+    # Wir bauen ein Match-Statement, das auf den source_layer (den Dateinamen) prüft
+    # oder alternativ auf bekannte Muster in der 'layer' property
+    colors = {
+        "hrv": "#3b82f6", # Blau
+        "inn": "#10b981", # Grün
+        "rlz": "#f59e0b", # Orange
+        "skg": "#ec4899", # Pink
+        "srki": "#8b5cf6" # Violett
+    }
+    
+    # Wir versuchen erst den source_layer (Dateinamen) zu matchen
+    expr = ["match", ["literal", source_layer]]
+    for key, color in colors.items():
+        expr.extend([key, color])
+    
+    # Fallback: Falls der Dateiname nicht gematcht hat (sollte er aber in dieser Pipeline),
+    # schauen wir in die Property 'layer'
+    fallback_expr = ["match", ["get", "layer"]]
+    # Hier müssten wir sehr viele Varianten abdecken, daher ist der Match auf den 
+    # source_layer (Dateinamen) in unserem System am stabilsten.
+    fallback_expr.extend(["Bezirk Steyr-Land", "#8b5cf6"])
+    fallback_expr.append("#3b82f6") # Finaler Fallback
+    
+    expr.append(fallback_expr)
     
     # Fill Layer
     style["layers"].append({
         "id": f"{base_id}-fill",
         "type": "fill",
-        "source": DEFAULT_SOURCE_ID,
+        "source": source_id,
         "source-layer": source_layer,
         "filter": geometry_filter("Polygon", "MultiPolygon"),
         "paint": {
-            "fill-color": color,
-            "fill-opacity": 0.2,
-            "fill-outline-color": color
+            "fill-color": expr,
+            "fill-opacity": 0.25,
+            "fill-outline-color": "#ffffff"
         }
     })
     
-    # Line Layer
-    style["layers"].append({
-        "id": f"{base_id}-line",
-        "type": "line",
-        "source": DEFAULT_SOURCE_ID,
-        "source-layer": source_layer,
-        "filter": geometry_filter("LineString", "MultiLineString", "Polygon", "MultiPolygon"),
-        "paint": {
-            "line-color": color,
-            "line-width": ["interpolate", ["linear"], ["zoom"], 6, 1.5, 12, 3.5],
-            "line-opacity": 0.8
-        }
-    })
-    
-    # Label Layer (Centroid labels, matching layer color)
+    # Label Layer
     style["layers"].append({
         "id": f"{base_id}-labels",
         "type": "symbol",
-        "source": DEFAULT_SOURCE_ID,
+        "source": source_id,
         "source-layer": source_layer,
         "filter": geometry_filter("Polygon", "MultiPolygon"),
         "layout": {
-            "text-field": source_layer.upper(), # HRV, INN, etc.
-            "text-size": ["interpolate", ["linear"], ["zoom"], 8, 12, 12, 18],
+            "text-field": ["get", "name"],
             "text-font": DEFAULT_FONT_STACK,
-            "text-allow-overlap": False,
-            "symbol-placement": "point"
+            "text-size": ["interpolate", ["linear"], ["zoom"], 6, 11, 12, 14],
+            "text-anchor": "center",
+            "text-allow-overlap": False
         },
         "paint": {
-            "text-color": color,
-            "text-halo-color": "#ffffff",
-            "text-halo-width": 2.0,
-            "text-halo-blur": 0.5
+            "text-color": "#ffffff",
+            "text-halo-color": "#000000",
+            "text-halo-width": 2
         }
     })
 
-def main():
+def build_style(dataset_config, args):
+    rel_path = Path(dataset_config["path"])
+    full_path = Path(args.root) / rel_path
+    
+    slug = "-".join(sanitize_name(p).replace("_", "-") for p in rel_path.parts)
+    pmtiles_rel = f"pmtiles/{slug}.pmtiles"
+    pmtiles_url = build_pmtiles_source_url(args.base_url, pmtiles_rel)
+    
+    style = create_base_style(f"OE5ITH {dataset_config['name']}", pmtiles_url, args.sprite_url, args.glyphs_url, slug)
+    style["metadata"]["folder"] = dataset_config["name"]
+    
+    geojsons = list(full_path.glob("*.geojson"))
+    for g in sorted(geojsons):
+        layer_name = g.stem
+        source_layer = sanitize_name(layer_name)
+        add_leitstellen_layer(style, source_layer, slug)
+        
+    write_style(Path(args.out) / "styles" / f"{slug}.style.json", style)
+    return slug
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", required=True)
     parser.add_argument("--root", required=True)
     parser.add_argument("--base-url", default="")
     parser.add_argument("--sprite-url", default="../assets/sprites/oe5ith-markers/sprite")
     parser.add_argument("--glyphs-url", default="https://tiles.oe5ith.at/assets/fonts/{fontstack}/{range}.pbf")
+    parser.add_argument("--path", required=True)
+    parser.add_argument("--name", required=True)
     args = parser.parse_args()
     
-    folder_rel = "Leitstellen-Bereiche"
-    slug = "-".join(sanitize_name(p).replace("_", "-") for p in Path(folder_rel).parts)
-    pmtiles_rel = f"pmtiles/{slug}.pmtiles"
-    pmtiles_url = build_pmtiles_source_url(args.base_url, pmtiles_rel)
-    
-    style = create_base_style(f"OE5ITH {folder_rel}", pmtiles_url, args.sprite_url, args.glyphs_url)
-    style["metadata"]["folder"] = folder_rel
-    style["metadata"]["colorStrategy"] = "source-layer-palette"
-    
-    # Scan directory
-    base_dir = Path(args.root) / folder_rel
-    if not base_dir.exists():
-        print(f"⚠️ Directory {base_dir} not found.")
-        return
-
-    geojson_files = sorted(base_dir.glob("*.geojson"))
-    total = len(geojson_files)
-    
-    for index, g in enumerate(geojson_files):
-        layer_name = g.stem
-        source_layer = sanitize_name(layer_name)
-        color = pick_palette_color(LEITSTELLEN_COLOR_PALETTE, index, total)
-        add_leitstellen_layers(style, source_layer, color)
-        
-    write_style(Path(args.out) / "styles" / f"{slug}.style.json", style)
-    print(f"✅ Style created: {slug} (Modular with Palette)")
-
-if __name__ == "__main__": main()
+    dataset_config = {
+        "path": args.path,
+        "name": args.name,
+        "template": "leitstellen"
+    }
+    build_style(dataset_config, args)

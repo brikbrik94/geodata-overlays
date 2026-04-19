@@ -12,22 +12,23 @@ mein-overlay-repo/
 │   ├── pmtiles/              # PMTiles Dateien
 │   ├── styles/               # Stylesheets (style.json)
 │   └── assets/               # Sprites und Fonts
-└── build.sh                  # Skript zum Bauen/Aktualisieren der Daten
+└── update.sh                 # Optional: Skript zum Aktualisieren der Daten
 ```
 
 ## 2. Die Datei manifest.json
 Das Manifest im Root von `dist/` steuert den Deployment-Prozess.
 
-### Struktur (v1.0)
+### Beispiel Struktur
 ```json
 {
   "version": "1.0",
   "project": "Mein Spezial-Overlay",
-  "tileset": "overlays",
   "generated_at": "2026-04-09T08:00:00Z",
   "datasets": [
     {
       "id": "meine-karte",
+      "type": "overlay",
+      "source": "osm",
       "name": "Meine Spezialkarte",
       "style_path": "styles/style.json",
       "pmtiles_path": "pmtiles/data.pmtiles"
@@ -51,17 +52,23 @@ Das Manifest im Root von `dist/` steuert den Deployment-Prozess.
 ```
 
 ### Felder im Detail
-- **`version`**: Aktuelle Version des Standards (hier: "1.0").
-- **`tileset`**: Bestimmt die Kategorie im Zielsystem.
-  - `osm`, `basemap-at` -> Grundkarten
-  - `overlays` -> Overlays (Standard)
 - **`datasets`**: Ein Array von Karten-Definitionen.
   - `id`: Eindeutiger Bezeichner (wird Teil der URL).
+  - `type`: `basemap` (Grundkarte) oder `overlay` (Zusatzebene). Bestimmt die prinzipielle Kategorie und Behandlung im System.
+  - `source`: (Optional) Z.B. `osm` oder `basemap-at`. Dies ist eine reine Quellinformation (Metadaten) und hat **keine** Auswirkung auf den Programmablauf oder die Ordnerstruktur beim Deployment.
+  - `name`: Anzeigename des Datensatzes.
   - `style_path`: Relativer Pfad zur `style.json` innerhalb von `dist/`.
   - `pmtiles_path`: Relativer Pfad zur `.pmtiles` Datei innerhalb von `dist/`.
+  - `sprite_id`: (Optional) ID des zu verwendenden Spritesets (muss unter `resources.sprites` definiert sein). Überschreibt Standard-Mappings.
 - **`resources`**: Optionale zusätzliche Assets.
   - `sprites`: Kopiert den `path` nach `/srv/assets/sprites/<id>/`.
   - `fonts`: Kopiert den `path` nach `/srv/assets/fonts/<id>/`.
 
-## 3. Build & Update Hook
-Wenn im Root des Repositories ein ausführbares Skript namens `build.sh` oder `update.sh` liegt, wird dieses von der Haupt-Pipeline aufgerufen, bevor das Deployment startet. Dies erlaubt es dem Plugin, seine Daten selbstständig aktuell zu halten.
+### Abwärtskompatibilität
+Der Updater unterstützt für eine Übergangszeit auch:
+- Ein globales `tileset` Feld (wird intern zu `type` gemapped).
+- `overlays` (Array) anstelle von `datasets`.
+- `sprite_url` anstelle von `path` innerhalb der Sprites-Ressourcen.
+
+## 3. Update Hook
+Wenn im Root des Repositories ein ausführbares Skript namens `update.sh` oder `build.sh` liegt, wird dieses von der Haupt-Pipeline aufgerufen, bevor das Deployment startet. Dies erlaubt es dem Plugin, seine Daten selbstständig aktuell zu halten.

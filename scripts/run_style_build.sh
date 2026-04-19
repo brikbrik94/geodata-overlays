@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Hauptskript für den modularen Style-Build
-# Ruft die einzelnen Style-Builder in scripts/style_builders/ auf
+# Nutzt den neuen Orchestrator basierend auf overlay_config.json
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 EXTERNAL_DATA_DIR="$ROOT_DIR/external/geojson-data"
@@ -33,24 +33,16 @@ done
 
 mkdir -p "$OUT_DIR/styles"
 
-# Python Pfad setzen damit style_utils gefunden wird
-export PYTHONPATH="$ROOT_DIR/scripts/style_builders:${PYTHONPATH:-}"
+# Python Pfad setzen damit config_parser und style_utils gefunden werden
+export PYTHONPATH="$ROOT_DIR/scripts:$ROOT_DIR/scripts/style_builders:${PYTHONPATH:-}"
 
-echo "🚀 Starting modular Style build..."
+echo "🚀 Starting modular Style build with Orchestrator..."
 
-# Liste der Builder (hier fügen wir schrittweise neue hinzu)
-BUILDERS=("build_nah.py" "build_rd.py" "build_zonen.py" "build_anfahrtszeit.py" "build_leitstellen.py" "build_bezirke.py" "build_gemeinden.py" "build_sonstiges.py")
-
-for builder in "${BUILDERS[@]}"; do
-  python3 "$ROOT_DIR/scripts/style_builders/$builder" --root "$EXTERNAL_DATA_DIR" --out "$OUT_DIR" --base-url "$BASE_URL"
-done
-
-# Straßen (Speziell aufgerufen wegen unterschiedlicher Farben)
-python3 "$ROOT_DIR/scripts/style_builders/build_strassen.py" --root "$EXTERNAL_DATA_DIR" --out "$OUT_DIR" --base-url "$BASE_URL" \
-  --folder "Straßen/Autobahnen" --line-color "#005fb8" --bubble-icon "label-bubble-blue" --text-color "#ffffff"
-
-python3 "$ROOT_DIR/scripts/style_builders/build_strassen.py" --root "$EXTERNAL_DATA_DIR" --out "$OUT_DIR" --base-url "$BASE_URL" \
-  --folder "Straßen/Bundesstraßen" --line-color "#ffcc00" --bubble-icon "label-bubble-yellow" --text-color "#000000"
+# Der Orchestrator liest overlay_config.json oder nutzt den Legacy-Fallback
+python3 "$ROOT_DIR/scripts/build_styles.py" \
+  --root "$EXTERNAL_DATA_DIR" \
+  --out "$OUT_DIR" \
+  --base-url "$BASE_URL"
 
 # Fonts kopieren (NEU für Plugin-Standard)
 if [[ -d "$ROOT_DIR/assets/fonts" ]]; then
@@ -65,4 +57,4 @@ echo "📜 Generating manifest.json for external scripts..."
 python3 "$ROOT_DIR/scripts/generate_manifest.py"
 
 echo
-echo "✅ Style build complete. Styles, index.json and manifest.json are ready."
+echo "✅ Style build complete. Styles, assets and manifest.json are ready."
