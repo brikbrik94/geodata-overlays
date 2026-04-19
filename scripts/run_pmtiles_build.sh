@@ -5,7 +5,7 @@ set -euo pipefail
 # Nutzt pmtiles_builder.py zur Konvertierung von GeoJSON -> PMTiles
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-EXTERNAL_DATA_DIR="$ROOT_DIR/external/geojson-data"
+EXTERNAL_DATA_DIR="$ROOT_DIR/data/geojson"
 OUT_DIR="$ROOT_DIR/dist"
 
 usage() {

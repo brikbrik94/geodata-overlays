@@ -5,7 +5,7 @@ set -euo pipefail
 # Nutzt den neuen Orchestrator basierend auf overlay_config.json
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-EXTERNAL_DATA_DIR="$ROOT_DIR/external/geojson-data"
+EXTERNAL_DATA_DIR="$ROOT_DIR/data/geojson"
 OUT_DIR="$ROOT_DIR/dist"
 
 usage() {

@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DEFAULT_REPO_URL="git@github.com:brikbrik94/geojson.git"
-DEFAULT_TARGET_DIR="$ROOT_DIR/external/geojson-data"
+DEFAULT_TARGET_DIR="$ROOT_DIR/data/geojson"
 
 REPO_URL="$DEFAULT_REPO_URL"
 TARGET_DIR="$DEFAULT_TARGET_DIR"

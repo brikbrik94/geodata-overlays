@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Modulares Build-Skript für Overlays
+# Nutzt das externe GeoJSON-Repository als primäre Datenquelle.
+
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-DEFAULT_LOCAL_ROOT="$ROOT_DIR/geojson"
-DEFAULT_EXTERNAL_ROOT="$ROOT_DIR/external/geojson-data"
+DEFAULT_EXTERNAL_ROOT="$ROOT_DIR/data/geojson"
 DEFAULT_OUT_DIR="$ROOT_DIR/dist"
 
-SOURCE_MODE=""
+SOURCE_MODE="external"
 CUSTOM_ROOT=""
 OUT_DIR="$DEFAULT_OUT_DIR"
 CLEAN_MODE=""
@@ -17,16 +19,14 @@ usage() {
   cat <<USAGE
 Usage: $(basename "$0") [options]
 
-Interactive wrapper to simplify overlay builds.
-
 Options:
-  --source <local|external|custom>  Data source mode
-  --root <path>                     Custom data root (implies --source custom)
-  --out <path>                      Output directory (default: $DEFAULT_OUT_DIR)
-  --clean <yes|no>                  Clean output directory before build
-  --sprites <yes|no>                Rebuild sprites before build
-  --skip-pmtiles                    Build only manifests/styles/index (no tippecanoe)
-  -h, --help                        Show this help
+  --source <external|custom>  Data source mode (defaults to external)
+  --root <path>               Custom data root (implies --source custom)
+  --out <path>                Output directory (default: $DEFAULT_OUT_DIR)
+  --clean <yes|no>            Clean output directory before build
+  --sprites <yes|no>          Rebuild sprites before build
+  --skip-pmtiles              Build only manifests/styles/index (no tippecanoe)
+  -h, --help                  Show this help
 USAGE
 }
 
@@ -43,19 +43,6 @@ ask_yes_no() {
       *) echo "Bitte yes/no bzw. y/n eingeben." ;;
     esac
   done
-}
-
-detect_python_bin() {
-  if command -v python3 >/dev/null 2>&1; then
-    echo "python3"
-    return 0
-  fi
-  if command -v python >/dev/null 2>&1; then
-    echo "python"
-    return 0
-  fi
-  echo "Neither python3 nor python found in PATH." >&2
-  return 1
 }
 
 while [[ $# -gt 0 ]]; do
@@ -97,42 +84,25 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [[ -z "$SOURCE_MODE" ]]; then
-  echo "Welche Datenquelle möchtest du verwenden?"
-  echo "  1) local    ($DEFAULT_LOCAL_ROOT)"
-  echo "  2) external ($DEFAULT_EXTERNAL_ROOT)"
-  echo "  3) custom"
-  read -r -p "Auswahl [1/2/3] (default 1): " choice
-  case "${choice:-1}" in
-    1) SOURCE_MODE="local" ;;
-    2) SOURCE_MODE="external" ;;
-    3) SOURCE_MODE="custom" ;;
-    *) echo "Ungültige Auswahl: ${choice}"; exit 2 ;;
-  esac
+# Legacy/Compatibility Mapping
+if [[ "$SOURCE_MODE" == "local" ]]; then
+  SOURCE_MODE="external"
 fi
 
-case "$SOURCE_MODE" in
-  local)
-    DATA_ROOT="$DEFAULT_LOCAL_ROOT"
-    ;;
-  external)
-    DATA_ROOT="$DEFAULT_EXTERNAL_ROOT"
-    ;;
-  custom)
-    if [[ -z "$CUSTOM_ROOT" ]]; then
-      read -r -p "Pfad zum GeoJSON-Root: " CUSTOM_ROOT
-    fi
-    DATA_ROOT="$CUSTOM_ROOT"
-    ;;
-  *)
-    echo "Unsupported --source value: $SOURCE_MODE" >&2
-    exit 2
-    ;;
-esac
-
-if [[ "$SOURCE_MODE" == "external" && ! -d "$DATA_ROOT/.git" ]]; then
-  echo "ℹ️ External repo nicht vorhanden. Initialisiere es jetzt..."
-  bash "$ROOT_DIR/scripts/init_external_geojson_repo.sh" --target "$DATA_ROOT"
+if [[ "$SOURCE_MODE" == "external" ]]; then
+  DATA_ROOT="$DEFAULT_EXTERNAL_ROOT"
+  if [[ ! -d "$DATA_ROOT/.git" ]]; then
+    echo "ℹ️ External repo nicht vorhanden. Initialisiere es jetzt..."
+    bash "$ROOT_DIR/scripts/init_external_geojson_repo.sh" --target "$DATA_ROOT"
+  fi
+elif [[ "$SOURCE_MODE" == "custom" ]]; then
+  if [[ -z "$CUSTOM_ROOT" ]]; then
+    read -r -p "Pfad zum GeoJSON-Root: " CUSTOM_ROOT
+  fi
+  DATA_ROOT="$CUSTOM_ROOT"
+else
+  echo "Unsupported --source value: $SOURCE_MODE (Use 'external' or 'custom')" >&2
+  exit 2
 fi
 
 if [[ ! -d "$DATA_ROOT" ]]; then
