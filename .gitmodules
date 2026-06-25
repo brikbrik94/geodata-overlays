@@ -1,0 +1,3 @@
+[submodule "vendor/oe5ith-ci"]
+	path = vendor/oe5ith-ci
+	url = git@github.com:brikbrik94/oe5ith-ci.git
