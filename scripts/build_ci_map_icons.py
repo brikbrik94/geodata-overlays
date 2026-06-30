@@ -71,6 +71,17 @@ def make_sdf(png_path: Path, spread: float = 8.0) -> None:
     Image.fromarray(result).save(png_path)
 
 
+# Icons mit zu dünnen Features für den globalen spread-Wert.
+# ci-symbol-location: Ring (5px) und Ticks (4px) bei spread=8 → max. SDF-Alpha ~62%,
+# Halo und Fill sind kaum unterscheidbar → Render-Artefakte. spread=3 gibt ~84-92%.
+# ci-marker-ring: Donut-Ring (8px breit) bei spread=8 → max. SDF-Alpha ~76%, Ring
+# wird blass/washed-out gerendert. spread=3 gibt volle 100% Deckung.
+_SPREAD_OVERRIDES: dict[str, float] = {
+    "ci-symbol-location": 3.0,
+    "ci-marker-ring": 3.0,
+}
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", required=True, help="Path to oe5ith-ci icons.json")
@@ -112,7 +123,8 @@ def main() -> int:
         width, height = icon.get("viewBox", [64, 64])
         out_png = out_dir / f"{name}.png"
         render_svg_to_png(svg_path, out_png, int(width), int(height))
-        make_sdf(out_png, spread=args.spread)
+        effective_spread = _SPREAD_OVERRIDES.get(name, args.spread)
+        make_sdf(out_png, spread=effective_spread)
         rendered += 1
 
         entry: dict = {"sdf": bool(icon.get("sdf", True))}
