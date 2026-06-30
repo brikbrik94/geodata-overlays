@@ -96,12 +96,14 @@ direkt nach dem Sourcing der CI-Utils. Status je Zweig:
 | Kein git-Repo in `data/geojson` | `build_triggered` | „Kein git-Repo, Force-Build." | `""` |
 | `LOCAL != UPSTREAM` | `build_triggered` | „Update erkannt (`<local7>`→`<upstream7>`), Build gestartet." | `""` |
 | `LOCAL == UPSTREAM` | `up_to_date` | „Keine Updates, Build übersprungen." | `""` |
+| Triggered Build (`run.sh`) schlägt fehl | `error` | „Build fehlgeschlagen." | „run.sh exit non-zero" |
 | git-Fehler / unerwarteter Abbruch | `error` (Default) | (Default) | (Default) |
 
-Der **Build-Ausgang** (ob run.sh/run_overlay_build.sh erfolgreich war) gehört zu Quelle B —
-Quelle A protokolliert ausschließlich das Ergebnis des Update-Checks. Wird `build_triggered`
-gesetzt und der nachgelagerte Build schlägt fehl, beendet sich `update.sh` (`set -e`) zwar
-non-zero, Quelle A bleibt aber korrekt bei `build_triggered` (der Fehler steht in Quelle B).
+Quelle A protokolliert das Ergebnis des Update-Checks **inkl. des Triggered-Build-Ausgangs**:
+Wird ein Build getriggert, wird `run.sh` so aufgerufen, dass ein Fehlschlag erkannt wird
+(`if ! bash run.sh …`) und `RUN_LOG_STATUS=error` setzt, bevor `update.sh` non-zero endet.
+Bei Erfolg bleibt der Status `build_triggered`. Die **detaillierten** Build-Metriken
+(Stages, datasets, …) liegen weiterhin ausschließlich in Quelle B.
 
 ### 3. Quelle B — `scripts/run_overlay_build.sh`
 
