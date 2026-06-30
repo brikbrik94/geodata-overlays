@@ -50,7 +50,7 @@ run_log_str() {
 
 run_log_num() {
   local v="$2"
-  [[ -z "$v" ]] && v="null"
+  [[ "$v" =~ ^-?[0-9]+$ ]] || v="null"
   _RUN_LOG_EXTRA+=",\"$1\":$v"
 }
 

@@ -89,4 +89,21 @@ PY
 )
 [ "$?" -eq 1 ] || fail "Case 5 Exit-Code sollte 1 sein"
 
+# --- Case 6: run_log_num mit Non-Integer wird zu JSON null ---------------------
+(
+  export GEODATA_LOG_DIR="$TMP"
+  source "$LOGGER"
+  run_log_init h6.jsonl s6.json
+  RUN_LOG_STATUS="ok"
+  RUN_LOG_MESSAGE="Test non-numeric"
+  RUN_LOG_ERROR=""
+  run_log_num count abc
+)
+python3 - "$TMP/h6.jsonl" <<'PY' || fail "Case 6"
+import json, sys
+o = json.loads(open(sys.argv[1]).read().splitlines()[0])
+assert o["count"] is None, f"expected null, got {o['count']}"
+print("OK case6 non-numeric -> null")
+PY
+
 echo "✔ alle run_logger Tests bestanden"
