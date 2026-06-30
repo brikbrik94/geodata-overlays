@@ -28,7 +28,10 @@ log_header "INTELLIGENT UPDATE CHECK"
 if [ ! -d "$GEOJSON_DIR/.git" ]; then
     log_info "GeoJSON directory not found or not a git repository. Forcing update."
     RUN_LOG_STATUS="build_triggered"; RUN_LOG_MESSAGE="Kein git-Repo, Force-Build."; RUN_LOG_ERROR=""
-    bash "$ROOT_DIR/run.sh" "$@"
+    if ! bash "$ROOT_DIR/run.sh" "$@"; then
+        RUN_LOG_STATUS="error"; RUN_LOG_MESSAGE="Build fehlgeschlagen."; RUN_LOG_ERROR="run.sh exit non-zero"
+        exit 1
+    fi
     exit 0
 fi
 
@@ -47,7 +50,10 @@ if [ "$LOCAL" != "$UPSTREAM" ]; then
     RUN_LOG_MESSAGE="Update erkannt (${LOCAL:0:7}->${UPSTREAM:0:7}), Build gestartet."
     RUN_LOG_ERROR=""
     cd "$ROOT_DIR"
-    bash "$ROOT_DIR/run.sh" "$@"
+    if ! bash "$ROOT_DIR/run.sh" "$@"; then
+        RUN_LOG_STATUS="error"; RUN_LOG_MESSAGE="Build fehlgeschlagen."; RUN_LOG_ERROR="run.sh exit non-zero"
+        exit 1
+    fi
 else
     log_success "No updates found. Skipping build."
     RUN_LOG_STATUS="up_to_date"; RUN_LOG_MESSAGE="Keine Updates, Build uebersprungen."; RUN_LOG_ERROR=""
