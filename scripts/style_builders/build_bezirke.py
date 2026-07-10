@@ -6,7 +6,20 @@ from config_parser import sanitize_name
 
 def add_gebiete_layer(style, source_layer, source_id):
     base_id = f"{source_id}-{source_layer}"
-    
+
+    # Fill Layer (transparent, für bessere Click-Detection)
+    style["layers"].append({
+        "id": f"{base_id}-fill",
+        "type": "fill",
+        "source": source_id,
+        "source-layer": source_layer,
+        "filter": geometry_filter("Polygon", "MultiPolygon"),
+        "paint": {
+            "fill-color": "#3b82f6",
+            "fill-opacity": 0
+        }
+    })
+
     # Umriss Layer
     style["layers"].append({
         "id": f"{base_id}-outline",
