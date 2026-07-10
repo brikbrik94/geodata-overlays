@@ -111,6 +111,78 @@ def test_extract_legend_items_none():
     print("✓ test_extract_legend_items_none passed")
 
 
+def test_extract_legend_items_interpolate():
+    """Test extract_legend_items parses interpolate expressions."""
+    layers = [
+        {
+            "id": "time-fill",
+            "type": "fill",
+            "paint": {
+                "fill-color": [
+                    "interpolate",
+                    ["linear"],
+                    ["get", "time"],
+                    0, "#22c55e",
+                    15, "#facc15",
+                    30, "#f97316",
+                    45, "#ef4444"
+                ]
+            }
+        }
+    ]
+    items = extract_legend_items(layers)
+    assert items is not None, "Expected legend items for interpolate expression"
+    assert isinstance(items, list), f"Expected list, got {type(items)}"
+    assert len(items) == 4, f"Expected 4 items, got {len(items)}"
+
+    # Check first item
+    assert items[0]["label"] == "0-15 min", f"Expected '0-15 min', got {items[0]['label']}"
+    assert items[0]["color"] == "#22c55e", f"Expected '#22c55e', got {items[0]['color']}"
+
+    # Check last item
+    assert items[-1]["label"] == "45+ min", f"Expected '45+ min', got {items[-1]['label']}"
+    assert items[-1]["color"] == "#ef4444", f"Expected '#ef4444', got {items[-1]['color']}"
+
+    print("✓ test_extract_legend_items_interpolate passed")
+
+
+def test_extract_legend_items_match():
+    """Test extract_legend_items parses match expressions."""
+    layers = [
+        {
+            "id": "anfahrtszeit-fill",
+            "type": "fill",
+            "paint": {
+                "fill-color": [
+                    "match",
+                    ["get", "AA_MINS"],
+                    15, "#10b981",
+                    30, "#84cc16",
+                    45, "#f59e0b",
+                    60, "#f97316",
+                    75, "#ef4444",
+                    90, "#b91c1c",
+                    "#3b82f6"
+                ]
+            }
+        }
+    ]
+    items = extract_legend_items(layers)
+    assert items is not None, "Expected legend items for match expression"
+    assert isinstance(items, list), f"Expected list, got {type(items)}"
+    assert len(items) == 6, f"Expected 6 items, got {len(items)}"
+
+    # Check first item
+    assert items[0]["label"] == "0-15 min", f"Expected '0-15 min', got {items[0]['label']}"
+    assert items[0]["color"] == "#10b981", f"Expected '#10b981', got {items[0]['color']}"
+
+    # Check last item
+    assert items[-1]["label"] == "75-90 min", f"Expected '75-90 min', got {items[-1]['label']}"
+    assert items[-1]["color"] == "#b91c1c", f"Expected '#b91c1c', got {items[-1]['color']}"
+
+    print("✓ test_extract_legend_items_match passed")
+
+
 def test_extract_layer_metadata_bezirke():
     """Test extract_layer_metadata for bezirke (gebiete) layers."""
     style_data = {
@@ -214,6 +286,8 @@ if __name__ == "__main__":
     test_extract_layer_opacity_from_line()
     test_extract_layer_opacity_default()
     test_extract_legend_items_none()
+    test_extract_legend_items_interpolate()
+    test_extract_legend_items_match()
     test_extract_layer_metadata_bezirke()
     test_extract_layer_metadata_line_priority()
     test_extract_layer_metadata_no_layers()
