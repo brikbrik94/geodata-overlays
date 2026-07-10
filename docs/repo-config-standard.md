@@ -55,7 +55,7 @@ Die folgenden Templates werden von der Pipeline unterstützt und steuern sowohl 
 ### 4. `gebiete` (Bezirke & Gemeinden)
 *   **Datentyp:** Polygone.
 *   **Verarbeitung:** Standard-Vektorisierung.
-*   **Styling:** Zeichnet Polygon-Umrisse ohne Füllung. Das Label (`name`) wird automatisch im Zentroid der Fläche platziert.
+*   **Styling:** Zeichnet Polygon-Umrisse mit einem transparenten Fill-Layer (für Click-Detection). Das Label (`name`) wird automatisch im Zentroid der Fläche platziert.
 
 ### 5. `strassen` (Linien-Infrastruktur)
 *   **Datentyp:** Linien.
