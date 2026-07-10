@@ -39,11 +39,11 @@ def add_rd_point_layer(style, source_layer, source_id):
             "text-field": ["get", "alt_name"],
             "text-size": ["interpolate", ["linear"], ["zoom"], 6, 9.5, 12, 11],
             "text-font": DEFAULT_FONT_STACK,
-            "text-variable-anchor": ["top"],
+            "text-variable-anchor": ["top", "bottom", "left", "right"],
             "text-radial-offset": 1.5,
             "text-allow-overlap": True,
             "text-ignore-placement": True,
-            "text-optional": False,
+            "text-optional": True,
             "icon-image": "label-bubble",
             "icon-anchor": "top",
             "icon-text-fit": "both",
@@ -53,8 +53,7 @@ def add_rd_point_layer(style, source_layer, source_id):
             "icon-optional": True
         },
         "paint": {
-            "text-color": "#111827",
-            "icon-opacity": 0.95
+            "text-color": "#111827"
         }
     })
 

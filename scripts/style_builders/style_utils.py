@@ -48,6 +48,7 @@ def create_base_style(name, pmtiles_url, sprite_url, glyphs_url, source_id):
                 "url": pmtiles_url,
                 "minzoom": 0,
                 "maxzoom": DEFAULT_MAXZOOM,
+                "attribution": "© OE5ITH"
             }
         },
         "glyphs": glyphs_url,

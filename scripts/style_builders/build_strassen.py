@@ -48,7 +48,7 @@ def add_strassen_line_layers(style, source_layer, source_id, options):
             "line-color": line_color,
             "line-width": ["interpolate", ["linear"], ["zoom"], 6, 1, 12, 3],
             "line-opacity": 0.4,
-            "line-dasharray": [3, 2]
+            "line-dasharray": [5, 3]
         }
     })
 
